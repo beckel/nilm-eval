@@ -1,0 +1,14 @@
+result 1:
+
+trained HMM means:
+2.000000	
+30.000000	
+
+trained HMM covs:
+5.000000	
+60.000000	
+
+fridge: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.1635       0.3741     0.1046     0.1046     0.0850          0.8518    50.7392     1.0411
+

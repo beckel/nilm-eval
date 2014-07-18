@@ -1,0 +1,14 @@
+Weiss:
+
+PARAMETERS:
+numOfResults: 		number of runs (with different training periods)
+trainingDays:		number of training days
+interval:			granularity of data (in seconds)
+household:			[1,2,4,5,6]
+filtering:			type of smoothing filter: ['meanMedianFiltering']
+fWindowLength:		length of filter window in timesteps
+edgeThreshold:		if the difference between two consecutive normalized apparent power values [VA] is greater than 'edgeThreshold' -> edge
+plevelMinLength:	minimal length of a power level
+maxEventDuration:	maximal duration of an event
+eventThreshold:		minimal difference in power for an event
+r:                  scaling parameter that indicates the maximum distance of an event to the nearest signature

@@ -1,0 +1,14 @@
+result 1:
+
+trained HMM means:
+4.000000	
+2400.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+microwave: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.0176       0.0089     0.5714     0.5714     0.1788         42.3443  1013.3447    42.8630
+

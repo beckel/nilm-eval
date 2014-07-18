@@ -1,0 +1,103 @@
+result 1:
+
+trained HMM means:
+9.412440	
+2101.717781	
+
+trained HMM covs:
+777.612458	
+358313.882027	
+
+trained dHMM means:
+12.707848	2443.547744	
+-1775.652100	-133.578178	
+
+trained dHMM covs:
+1187.339678	549118.234910	
+21140.798880	12896.254057	
+
+
+result 2:
+
+trained HMM means:
+0.000000	
+0.000000	
+
+trained HMM covs:
+0.010000	
+0.010000	
+
+trained dHMM means:
+0.000000	0.000000	
+0.000000	0.000000	
+
+trained dHMM covs:
+0.010000	0.010000	
+0.010000	0.010000	
+
+
+result 3:
+
+trained HMM means:
+0.000000	
+0.000000	
+
+trained HMM covs:
+0.010000	
+0.010000	
+
+trained dHMM means:
+26.844192	1766.726783	
+-1674.268533	-87.504108	
+
+trained dHMM covs:
+2276.063546	106830.942985	
+45961.038272	45630.539632	
+
+
+result 4:
+
+trained HMM means:
+47.563691	
+1783.937431	
+
+trained HMM covs:
+4949.483198	
+28439.673290	
+
+trained dHMM means:
+24.030569	1797.551228	
+-1811.628792	-67.269597	
+
+trained dHMM covs:
+5285.102719	55169.776357	
+303.592708	13272.025976	
+
+
+result 5:
+
+trained HMM means:
+0.000000	
+0.000000	
+
+trained HMM covs:
+0.010000	
+0.010000	
+
+trained dHMM means:
+46.919217	1886.145511	
+-1971.355728	22.497567	
+
+trained dHMM covs:
+13195.769693	6781.024867	
+21298.358391	9923.604395	
+
+
+microwave: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1        NaN          NaN     0.0000     0.0000     0.0000          0.3700   112.2373     1.1247
+           2        NaN          NaN     0.0000     0.0000     0.0000          1.0102   115.9026     1.0000
+           3        NaN          NaN     0.0000     0.0000     0.0000          1.0098   120.3177     1.0000
+           4     0.0016       0.0667     0.0008     0.0008     0.0001          2.1766   119.7097     3.5840
+           5        NaN          NaN     0.0000     0.0000     0.0000          1.0109   111.7220     1.0000
+

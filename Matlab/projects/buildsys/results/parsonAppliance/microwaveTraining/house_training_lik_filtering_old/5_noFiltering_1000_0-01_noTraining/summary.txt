@@ -1,0 +1,58 @@
+result 1:
+
+trained HMM means:
+4.000000	
+1000.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 2:
+
+trained HMM means:
+4.000000	
+1000.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 3:
+
+trained HMM means:
+4.000000	
+1000.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 4:
+
+trained HMM means:
+4.000000	
+1000.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+result 5:
+
+trained HMM means:
+4.000000	
+1000.000000	
+
+trained HMM covs:
+100.000000	
+1000.000000	
+
+microwave: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1        NaN       0.0000     0.0000     0.0000     0.0008          0.5099    92.5096     0.6667
+           2        NaN       0.0000     0.0000     0.0000     0.0007          0.5287    95.0114     0.6753
+           3        NaN       0.0000     0.0000     0.0000     0.0007          0.5382    97.3537     0.6789
+           4        NaN       0.0000     0.0000     0.0000     0.0008          0.5158    93.5076     0.6740
+           5        NaN       0.0000     0.0000     0.0000     0.0008          0.5055    92.9857     0.6701
+

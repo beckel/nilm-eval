@@ -1,0 +1,14 @@
+Baranski:
+
+PARAMETERS:
+numOfResults: 		number of runs (with different training periods)
+interval:			data granularity (in seconds)
+household:			[1,2,4,5,6]
+numOfClusters: 		number of clusters the events get partitioned into
+threshold:			a power step between two consecutive power values is ignored if the difference between the two power values is smaller than 'threshold'
+maxSeqLength: 		maximal length of a sequence in seconds
+numOfFSMs:          number of finite state machines to generate
+maxNumOfStates:     maximum number of states in a finite state machine
+dim1Weight:         total power step P of an event
+dim2Weight:         maximum power step P? of an event
+dim3Weight:         duration of an event

@@ -1,0 +1,54 @@
+result 1:
+
+      power:    std_power        boost   std_boost:     duration std_duration:        size:           Appliance1  Freq1           Appliance2  Freq2
+         -11            6          NaN           60          NaN            5         8963               Laptop   0.28               Fridge   0.03
+          11            6          NaN           52          NaN            6         8724               Laptop   0.31               Fridge   0.03
+         -58           12          NaN           73          NaN            4         3009              Freezer   0.41               Fridge   0.28
+          73            7          NaN          276          NaN            3         1960              Freezer   0.51               Fridge   0.05
+          93           31          NaN          270          NaN            3         1003               Fridge   0.69              Freezer   0.02
+       -1837           88          NaN          278          NaN            5          260                Stove   0.21         Water kettle   0.15
+        1857           92          NaN          386          NaN            4          253                Stove   0.21         Water kettle   0.14
+        1249           67          NaN          315          NaN            4          225                Stove   0.26               Laptop   0.02
+        -176           53          NaN          289          NaN            6          210                   TV   0.05              Freezer   0.04
+       -1235           60          NaN          244          NaN            5          199                Stove   0.35               Laptop   0.03
+        2425          473          NaN          468          NaN            4          187                Stove   0.17               Laptop   0.03
+       -2365           85          NaN          363          NaN            4          155                Stove   0.26           Dishwasher   0.06
+        -509           82          NaN          391          NaN            5          122              Freezer   0.14               Fridge   0.09
+        -783           61          NaN          267          NaN            5          102               Fridge   0.18              Freezer   0.18
+         596           72          NaN          209          NaN            6           97              Freezer   0.10               Fridge   0.05
+         850           69          NaN          217          NaN            5           88              Freezer   0.16               Fridge   0.11
+         375           75          NaN          237          NaN            6           83              Freezer   0.12               Fridge   0.04
+        1064           54          NaN          209          NaN            5           60               Fridge   0.13                Stove   0.05
+       -1023           56          NaN          305          NaN            5           56               Fridge   0.09               Laptop   0.05
+       -3391          416          NaN          512          NaN            6           39                Stove   0.05               Fridge   0.03
+sum Freq1 =   4.69;  sum Freq2 =   1.48
+
+    finite state machines:
+
+     fsm_1
+        1857
+       -1837
+     fsm_2
+        1249
+       -1235
+     fsm_3
+          11
+         -11
+     fsm_4
+        2425
+       -2365
+     fsm_5
+        1064
+       -1023
+     fsm_6
+         850
+        -783
+     fsm_8
+         596
+        -509
+    fsm_10
+        1249
+       -1023
+    fsm_11
+          73
+         -58

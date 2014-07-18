@@ -1,0 +1,57 @@
+result 1:
+
+          appliance:   true power:  reactive power:    phase:
+              Fridge        -69.21            -5.94         1
+              Fridge         79.87             4.42         1
+             Freezer        -51.63            16.47         1
+             Freezer         63.78           -19.99         1
+          Dishwasher      -2057.96             3.78         1
+          Dishwasher       2059.94           -18.32         1
+        Water kettle      -1880.72             2.39         1
+        Water kettle       1853.02            -4.30         1
+        Water kettle       1884.45             3.83         1
+               Stove       -903.01          -518.58         1
+               Stove        625.67           314.69         1
+                Lamp       -185.17          -111.16         1
+                Lamp       -184.93          -215.73         1
+                Lamp        222.45            91.43         1
+                Lamp        127.40            87.20         1
+              Laptop        -20.22            -3.35         1
+              Laptop         23.17            10.32         1
+                  TV       -166.45           -35.72         2
+                  TV        158.73            30.10         2
+                  TV        160.62            32.60         2
+              Stereo        -17.30           -11.79         2
+              Stereo         55.56            48.84         2
+
+
+Fridge: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.9185     0.9265     0.9105          Freezer     0.0357
+Freezer: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.9165     0.9775     0.8627           Fridge     0.0062
+Dishwasher: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.5576     0.9504     0.3946           Fridge     0.0000
+Water kettle: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.7531     0.9531     0.6224           Laptop     0.0087
+Stove: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.2400     1.0000     0.1364           Fridge     0.0000
+Lamp: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.3007     0.3710     0.2527          Freezer     0.1935
+Laptop: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.1067     0.0960     0.1201           Stereo     0.0213
+TV: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.3734     0.8911     0.2362           Stereo     0.0198
+Stereo: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1     0.1006     0.2341     0.0641          Freezer     0.0211
+Tablet: 
+  ResultNr     Fscore  Precision     Recall        Appliance FP_Fraction
+         1        NaN        NaN        NaN           Fridge     0.0000

@@ -1,0 +1,23 @@
+How to use NILM-Eval
+--------------------
+
+
+(*) Set up the data
+
+NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data".
+Other data sets can be used as well - this requires the following format/procedure:
+
+(*) Create configuration
+
+(*) Create experiment
+
+(*) Optional: create runfiles
+
+(*) Run experiments
+
+
+(todo: explain (1) "config" folder and (2) top level files and (3) aspect that stuff is "appliance-agnostic" (4) make experiment generation ... more configurable)
+
+
+
+"/"

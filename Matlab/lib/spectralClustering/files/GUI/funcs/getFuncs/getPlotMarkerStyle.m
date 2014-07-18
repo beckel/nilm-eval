@@ -1,0 +1,3 @@
+function plotMarkerStyle = getPlotMarkerStyle()
+
+plotMarkerStyle = '*';

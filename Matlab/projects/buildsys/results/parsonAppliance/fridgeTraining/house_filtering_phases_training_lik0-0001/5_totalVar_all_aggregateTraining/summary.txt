@@ -1,0 +1,103 @@
+result 1:
+
+trained HMM means:
+1.029524	
+98.310039	
+
+trained HMM covs:
+1.034369	
+2462.926839	
+
+trained dHMM means:
+-0.002933	6.623433	
+-13.279105	-0.898750	
+
+trained dHMM covs:
+0.010480	1084.951634	
+1980.247046	0.886162	
+
+
+result 2:
+
+trained HMM means:
+2.000000	
+60.000000	
+
+trained HMM covs:
+5.000000	
+40.000000	
+
+trained dHMM means:
+0.000000	0.000000	
+0.000000	0.000000	
+
+trained dHMM covs:
+0.010000	0.010000	
+0.010000	0.010000	
+
+
+result 3:
+
+trained HMM means:
+0.000000	
+0.000000	
+
+trained HMM covs:
+0.010000	
+0.010000	
+
+trained dHMM means:
+0.000000	0.000000	
+0.000000	0.000000	
+
+trained dHMM covs:
+0.010000	0.010000	
+0.010000	0.010000	
+
+
+result 4:
+
+trained HMM means:
+0.483723	
+83.952260	
+
+trained HMM covs:
+0.994354	
+2501.087830	
+
+trained dHMM means:
+-0.002578	7.667755	
+-1.619875	-0.375883	
+
+trained dHMM covs:
+0.010893	1369.609530	
+2058.235925	0.142192	
+
+
+result 5:
+
+trained HMM means:
+2.000000	
+60.000000	
+
+trained HMM covs:
+5.000000	
+40.000000	
+
+trained dHMM means:
+0.000000	0.000000	
+0.000000	0.000000	
+
+trained dHMM covs:
+0.010000	0.010000	
+0.010000	0.010000	
+
+
+fridge: 
+    ResultNr     Fscore    Precision     Recall        TPR        FPR    DeviationPct        RMS        NPE
+           1     0.2165       0.4991     0.1382     0.1382     0.0881          0.7637    72.2176     0.9786
+           2        NaN          NaN     0.0000     0.0000     0.0000          0.9594    73.0801     0.9590
+           3        NaN          NaN     0.0000     0.0000     0.0000          1.0004    74.1431     1.0000
+           4     0.2144       0.4826     0.1378     0.1378     0.0940          0.7996    71.9713     0.9915
+           5        NaN          NaN     0.0000     0.0000     0.0000          0.9590    72.7334     0.9586
+

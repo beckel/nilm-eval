@@ -1,0 +1,20 @@
+ParsonAppliance:
+
+PARAMETERS:
+numOfResults:   number of runs (with different training periods)
+trainingDays:	number of training days (per training period)
+interval:       granularity of data (in seconds)
+household:      [1,2,4,5,6]
+phases:         ['usePhases', 'doNotUsePhases']
+trainingType:	['aggregateTraining', 'plugTraining', 'noTraining']
+filtering:      ['noFiltering', 'meanMedianFiltering']
+
+likThres:       likelihood threshold
+numOfWindows:	number of training windows
+windowLength:	length of training window (in seconds)
+meanOn:         mean of Gaussian distribution describing an appliance's change in power consumption when the appliance gets turned on
+meanOff:        [...] turned off
+varOn:          variance of Gaussian distribution describing an appliance's change in power consumption when the appliance gets turned on
+varOff:         [...] turned off
+transOn:        transition probability from 'off' state to 'on' state
+transOff:       transition probability from 'on' state to 'off' state

@@ -1,0 +1,60 @@
+Mresult 1:
+
+      power:    std_power        boost   std_boost:     duration std_duration:        size:           Appliance1  Freq1           Appliance2  Freq2
+         -11           15          -11           15            1            0         4210               Laptop   0.26               Fridge   0.06
+          12           28           13           48            1            1         3756               Laptop   0.27               Fridge   0.07
+         -54           64          -39           54            2            0         2943              Freezer   0.32               Fridge   0.26
+          17           23           18           28            6            1         2415               Laptop   0.29               Fridge   0.01
+         -19           29          -16           33            5            1         1826               Laptop   0.27               Fridge   0.02
+          18           24           15           25            9            1         1576               Laptop   0.31               Fridge   0.01
+          85          106          492           90            5            1         1337              Freezer   0.47               Fridge   0.30
+          21           75           17           75           14            1         1077               Laptop   0.29               Fridge   0.01
+         -19           37          -16           33            7            0         1066               Laptop   0.27               Fridge   0.02
+         -24           48          -17           36           11            1         1040               Laptop   0.25              Freezer   0.02
+          87           61          803          146            5            1          941               Fridge   0.41              Freezer   0.41
+          26          139           20          142           19            1          767               Laptop   0.26               Fridge   0.02
+         -28           68          -19           53           15            1          714               Laptop   0.22               Fridge   0.03
+         -36           99          -24          112           19            1          428               Laptop   0.19              Freezer   0.04
+       -1141          362         -918          301            5            4          426                Stove   0.17               Fridge   0.06
+        1193          189          899          236            5            4          361                Stove   0.17               Fridge   0.05
+       -1884          248        -1419          237            4            4          267                Stove   0.26         Water kettle   0.14
+        1967          288         1234          251            6            4          253                Stove   0.21         Water kettle   0.11
+        2247          604         1867          308            6            4          197                Stove   0.16         Water kettle   0.04
+       -2343          533        -1845          332            6            6          195                Stove   0.16           Dishwasher   0.05
+sum Freq1 =   5.23;  sum Freq2 =   1.75
+
+    finite state machines:
+
+     fsm_2
+        1967
+       -1884
+     fsm_3
+        1193
+       -1141
+     fsm_4
+          26
+         -24
+     fsm_5
+          26
+         -28
+     fsm_6
+          21
+         -19
+     fsm_7
+          18
+         -19
+     fsm_8
+          18
+         -19
+     fsm_9
+          12
+         -11
+    fsm_10
+          21
+         -19
+    fsm_11
+          17
+         -19
+    fsm_12
+          21
+         -24

@@ -1,0 +1,19 @@
+% This file is part of the following project:
+% J. Zico Kolter. Tommi Jaakkola.
+% Approximate Inference in Additive Factorial HMMs with Application to Energy Disaggregation.
+% In: International Conference on Artificial Intelligence and Statistics (AISTATS). 2012.
+% Code provided as supplementary material
+% Copyright: J. Zico Kolter, MIT CSAIL, 2014.
+
+This directory contains an implementation of the algorithms and data
+for Section 4 of the paper, "Approximate Inference in Additive
+Factorial HMMs".  The experiments.m generates file the four graphs
+included in the section.
+
+The code makes use of the following packages (available separately):
+- CPLEX (available free for academic use):
+http://www-01.ibm.com/software/integration/optimization/cplex-optimizer/ 
+- Prox-TV 1.0 (freely available):
+http://arantxa.ii.uam.es/~gaa/software.html
+- Lightspeed Matlab Toolbox (freely available):
+http://research.microsoft.com/en-us/um/people/minka/software/lightspeed/
