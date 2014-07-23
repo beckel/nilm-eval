@@ -19,7 +19,10 @@ function [threshold] = getThresholdFscore(appliance, household)
                      15 15 0 15 15 15;        %pc 
                      15 15 0 15 15 15;        %laptop
                      15 15 0 15 15 15;        %tv
-                     15 15 0 15 15 15];       %stereo
+                     15 15 0 15 15 15;        %stereo
+                     15 15 0 15 15 15;        %tablet
+                     15 15 0 15 15 15;        %router
+                     15 15 0 15 15 15];       %illuminated fountain
 
     threshold = thresholdMatrix(appliance, household);             
 
