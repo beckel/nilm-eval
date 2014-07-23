@@ -14,11 +14,13 @@ By encapsulating those parameters in configurations, NILM-Eval further allows th
 
 For more detailed information refer to the following sources:
 
-* The ECO dataset (http://www.vs.inf.ethz.ch/res/show.html?what=eco-data)
-Together with "Energie Thun", a Swiss energy provider, we collected the ECO data set (Electricity Consumption and Occupancy). Using NILM-Eval, we evaluated the performance of four NILM algorithms on the ECO data set.
+* [The ECO dataset](http://www.vs.inf.ethz.ch/res/show.html?what=eco-data)
 
-* Romano Cicchetti's Master thesis, which describes the NILM-Eval framework in detail:
-R. Cicchetti, ?NILM-Eval: Disaggregation of real-world electricity consumption data,? Master?s thesis, ETH Zurich, 2014.
+Together with *Energie Thun*, a Swiss energy provider, we collected the ECO data set (Electricity Consumption and Occupancy). Using NILM-Eval, we evaluated the performance of four NILM algorithms on the ECO data set.
+
+* Romano Cicchetti's thesis, which describes the NILM-Eval framework in detail:
+
+R. Cicchetti, "NILM-Eval: Disaggregation of real-world electricity consumption data," Master's thesis, ETH Zurich, 2014.
 
 
 
