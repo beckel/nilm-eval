@@ -1,10 +1,29 @@
-How to use NILM-Eval
---------------------
+1) Set up the data
+==================
+
+NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco".
+The directory structure then looks as follows:
+
+Household A, smart meter data:
+Matlab/data/eco/smartmeter/0A/
+
+Household A, plug data for plug Y:
+Matlab/data/eco/plugs/0A/0Y/
+
+These directories contain daily consumption patterns, one day per file. The file structure is explained in the documentation (file "consumption_data.txt"). When using other data sets, the first step consists in creating the corresponding Matlab files.
 
 
-(*) Set up the data
 
-NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data".
+
+
+
+
+
+
+
+
+
+
 Other data sets can be used as well - this requires the following format/procedure:
 
 (*) Create configuration

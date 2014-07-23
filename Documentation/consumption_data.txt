@@ -1,0 +1,42 @@
+SMART METER AND PLUG DATA
+-------------------------
+
+Each Matlab file contains aggregate consumption data of a single day and is named accordingly (e.g., "2012-08-31.mat"). Each smart meter file contains a struct with the following fields:
+
+* powerallphases: Sum of real power over all phases
+* powerl1: Real power phase 1
+* powerl2: Real power phase 2
+* powerl3: Real power phase 3
+* currentneutral: Neutral current
+* currentl1: Current phase 1
+* currentl2: Current phase 2
+* currentl3: Current phase 3
+* voltagel1: Voltage phase 1
+* voltagel2: Voltage phase 2
+* voltagel3: Voltage phase 3
+* phaseanglevoltagel2l1: Phase shift between voltage on phase 2 and 1
+* phaseanglevoltagel3l1: Phase shift between voltage on phase 3 and 1
+* phaseanglecurrentvoltagel1: Phase shift between current/voltage on phase 1
+* phaseanglecurrentvoltagel2: Phase shift between current/voltage on phase 2 
+* phaseanglecurrentvoltagel3: Phase shift between current/voltage on phase 3
+
+Each plug file only consists a single field:
+
+* consumption: Real power measured by the plug
+
+The name of the struct encodes the date, number of household, and type of data ("00" represents a smart meter, "01" represents plug no. 1, ...). For instance, "Appliance010020120831" contains smart meter data from household 01 measured on August 31st, 2012. Each field contains 86,400 entries (i.e., one entry for each second of the day). Entries that refer to missing measurements are denoted as "-1". 
+
+
+
+Directory structure:
+--------------------
+
+NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco".
+The data is stored in daily consumption patterns, one day per file and smart meter / plug.  The directory structure looks as follows:
+
+Household A, smart meter data:
+Matlab/data/eco/smartmeter/0A/
+
+Household A, plug data for plug Y:
+Matlab/data/eco/plugs/0A/0Y/
+
