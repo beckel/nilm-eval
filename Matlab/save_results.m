@@ -3,7 +3,7 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [] = saveResults()
+function [] = save_results()
 
     % saves the results (fscore, rms, etc.) of an experiment in the
     % 'experiment_result' structure

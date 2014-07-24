@@ -8,7 +8,7 @@ function [] = create_configuration(algorithm, configuration)
     % create a new default configuration
 
     % load default values in yaml file
-    yaml_file = strcat('input/yaml/', algorithm, '.yaml');
+    yaml_file = strcat('input/configurations/', algorithm, '.yaml');
     default = ReadYaml(yaml_file);
     
     % set default values

@@ -1,32 +1,21 @@
+The following process describes the steps necessary to perform an experiment with the ECO data set or with any other data set.
+
 1) Set up the data
 ==================
 
-NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco".
-The directory structure then looks as follows:
+NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco". The directory and file structure is explained in the documentation file "Documentation/consumption_data.txt". When using other data sets, the first step consists in creating the corresponding Matlab files.
 
-Household A, smart meter data:
-Matlab/data/eco/smartmeter/0A/
+2) Create a configuration
+=========================
 
-Household A, plug data for plug Y:
-Matlab/data/eco/plugs/0A/0Y/
-
-These directories contain daily consumption patterns, one day per file. The file structure is explained in the documentation (file "consumption_data.txt"). When using other data sets, the first step consists in creating the corresponding Matlab files.
+The folder "Matlab/input/configurations" contains default configurations for each of the algorithms. 
 
 
 
 
 
 
-
-
-
-
-
-
-
-Other data sets can be used as well - this requires the following format/procedure:
-
-(*) Create configuration
+... tbd.
 
 (*) Create experiment
 
@@ -34,9 +23,5 @@ Other data sets can be used as well - this requires the following format/procedu
 
 (*) Run experiments
 
-
 (todo: explain (1) "config" folder and (2) top level files and (3) aspect that stuff is "appliance-agnostic" (4) make experiment generation ... more configurable)
 
-
-
-"/"

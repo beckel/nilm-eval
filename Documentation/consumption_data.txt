@@ -1,5 +1,5 @@
-SMART METER AND PLUG DATA
--------------------------
+Content of the files
+--------------------
 
 Each Matlab file contains aggregate consumption data of a single day and is named accordingly (e.g., "2012-08-31.mat"). Each smart meter file contains a struct with the following fields:
 
@@ -27,7 +27,6 @@ Each plug file only consists a single field:
 The name of the struct encodes the date, number of household, and type of data ("00" represents a smart meter, "01" represents plug no. 1, ...). For instance, "Appliance010020120831" contains smart meter data from household 01 measured on August 31st, 2012. Each field contains 86,400 entries (i.e., one entry for each second of the day). Entries that refer to missing measurements are denoted as "-1". 
 
 
-
 Directory structure:
 --------------------
 
@@ -39,4 +38,21 @@ Matlab/data/eco/smartmeter/0A/
 
 Household A, plug data for plug Y:
 Matlab/data/eco/plugs/0A/0Y/
+
+
+
+Configuration of plugs, phases, etc.
+------------------------------------
+
+When adding a data set, settings specific to the data set must be added to the Matlab files stored in "Matlab/config/":
+
+* "Matlab/config/getApplianceHouseMatrix.m": This function provides a matrix that provides the plug number for a given household and appliance.
+* "Matlab/config/getCellWithAllApplianceNames.m": Appliance names (represented by the rows of the appliance/house matrix).
+* "Matlab/config/getPhaseMatrix.m": Matrix that specifies the phase on which each appliance (in each household) is running. "0" implies that this appliance is not represented by a plug.
+* "Matlab/config/getThresholdDiffOnOff.m": Required to detect switching events of appliances (e.g., when extracting ground truth of switching events from the plug data): A switching event of an appliance is detected as such if and only if the difference in consumption between two consecutive time frames exceeds the threshold. 
+* "Matlab/config/get_evaluation_threshold.m": Also required for evaluation: The matrix specifies - for each household and appliance - a threshold that denotes the maximum difference between the estimated consumption and actual consumption when computing the performance metrics.
+
+
+
+
 

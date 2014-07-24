@@ -1,0 +1,10 @@
+dataset: []
+household: []
+evalDays: []
+numOfResults: []
+trainingDays: []
+granularity: []
+filtering: []
+fWindowLength: []
+filtLRatio: []
+

@@ -49,7 +49,7 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
         % calculate f_score, recall, precision, true positive rate (tpr), false
         % positive rate (fpr)
         idx_existing = actual_consumption ~= -1 & total_consumption ~= -1;
-        threshold = getThresholdFscore(appliance, household);
+        threshold = get_evaluation_threshold(appliance, household);
         idx_actual_on = actual_consumption > threshold;
         idx_inferred_on = inferred_consumption > threshold;
         tp = nnz(idx_actual_on & idx_inferred_on & idx_existing);
