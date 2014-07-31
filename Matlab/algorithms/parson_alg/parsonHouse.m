@@ -8,7 +8,7 @@
 % Modified by Romano Cicchetti, ETH Zurich, in the context of the NILM-Eval project
 
 
-function [result] = parsonHouse(evaluation_and_training_days, params_struct, fid)
+function [result] = parsonHouse(evaluation_and_training_days, params_struct)
 
     %load appliance parameters        
     phases = params_struct.phases;
@@ -16,6 +16,7 @@ function [result] = parsonHouse(evaluation_and_training_days, params_struct, fid
     method = params_struct.method;
     house = params_struct.household;
     interval = params_struct.interval;
+    dataset = params_struct.dataset;
     trainingType = params_struct.trainingType;
     evaluation_days = evaluation_and_training_days{1};
     training_days = evaluation_and_training_days{2};
@@ -43,7 +44,7 @@ function [result] = parsonHouse(evaluation_and_training_days, params_struct, fid
         t_data_matrix = function_handle(t_data_matrix,5);
     end
     
-    appliances = findAppliances(house);
+    appliances = findAppliances(house, dataset);
     result = struct;
     result.consumption = zeros(length(appliances), length(evaluation_days) * 86400/interval);
     resCounter = 1;
@@ -148,7 +149,7 @@ function [result] = parsonHouse(evaluation_and_training_days, params_struct, fid
         resCounter = resCounter + 1;
 
     end
-    result.appliance_names = getApplianceNames(appliances);
+    result.appliance_names = getApplianceNames(appliances, dataset);
 end
 
 

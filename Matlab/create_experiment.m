@@ -3,68 +3,52 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
+% Creates a set of setup files based on a configuration and experiment
+% definition.
 function create_experiment()
 
-    algorithm = 'weiss';
-    configuration = 'weiss_initial';
-    experiment_name = '2014-07-1-weiss-initial-buildsys';
-    
-    % create a new experiment
+    configuration_name = 'weiss_initial';
+    configuration_input = 'input/configurations/weiss_initial.yaml';
+    experiment_name = '2014-07-01-all-households';
+    experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
+    folder_setup_files = ['input/autogen/experiments/', experiment_name, '/'];
 
-    % load values of default configuration
-    path_to_configuration = strcat('input/autogen/configurations/', algorithm, '_', configuration);
-    load(strcat(path_to_configuration, '/default_values.mat'));
+    % load values of configuration and experiment
+    configuration = ReadYaml(configuration_input);
+    experiment = ReadYaml(experiment_input);
     
-    % load values of experiment 
-    yaml_file = strcat('input/yaml/', algorithm, '.yaml');
-    experiment = ReadYaml(yaml_file);
-        
-    % get experiment parameters
-    setup = default;
+    % prepare experiment struct
+    field_names = fieldnames(configuration);
     experiment_parameters = {};
     experiment_values = {};
-    field_names = fieldnames(experiment);
     for field_name = field_names'
-        values = experiment.(field_name{1});
-        if length(values) == 1
-            setup.(field_name{1}) = cell2mat(values(1));
-        end
-        if length(values) > 1
-            experiment_parameters{end+1} = field_name{1};
-            experiment_values{end+1} = values;
+        % if field is specified in experiment (and is not empty):
+        % use these values instead of the values from the configuration
+        if isfield(experiment, field_name) && ~isempty(experiment.(field_name{1}))
+            values = experiment.(field_name{1});
+            if length(values) == 1
+                setup.(field_name{1}) = cell2mat(values);
+            else
+                experiment_parameters{end+1} = field_name{1};
+                experiment_values{end+1} = values;
+            end
+        
+        % Otherwise: Use the value from the default configuration
+        else
+            value = configuration.(field_name{1});
+            if isempty(value) || iscell(value)
+                error('Ecactly one value must be specified in the default configuration (not a cell).');
+            end
+            setup.(field_name{1}) = value;
         end
     end
     
-    % set experiment name if none is provided
-    experiment_parameters_str = strjoin(experiment_parameters, '_');
-    if isempty(experiment_parameters_str)
-        experiment_parameters_str = 'default';
-    end    
-    if nargin < 3 || isempty(experiment_name)
-        experiment_name = experiment_parameters_str;
-    end
-
-    % create folder to store the setup files
-    path_to_experiment_setups = strcat('input/autogen/experiments/setups/', algorithm, '_', configuration, '/', experiment_name);
-    path_to_experiment_results = strcat('results/', algorithm, '_', configuration, '/', experiment_name); 
-    if exist(path_to_experiment_setups) || exist(path_to_experiment_results)
-       error('set a unique experiment name or extend an existing experiment') 
-    end
-    mkdir(path_to_experiment_setups);
-    
-    % set name of algorithm, name of default configuration and experiment
-    % name
-    setup.algorithm = algorithm;
-    setup.configuration = configuration;
+    % set other setup parameters
+    setup.configuration = configuration_name;
     setup.experiment = experiment_name;
     
-    % create the setup files
-    create_setup_files(experiment_parameters, experiment_values, setup, '', 1, path_to_experiment_setups) 
+    create_setup_files(experiment_parameters, experiment_values, setup, '', 1, folder_setup_files) 
+
+% path_to_experiment_results = strcat('results/', algorithm, '_', configuration, '/', experiment_name); 
+
     
-    % store the yaml file that defines the experiment
-    path_to_experiment_yaml = strcat('input/autogen/experiments/yaml/', algorithm, '_', configuration);
-    mkdir(path_to_experiment_yaml);
-    copyfile(yaml_file, strcat(path_to_experiment_yaml, '/', experiment_name, '.yaml'));
-
-end
-

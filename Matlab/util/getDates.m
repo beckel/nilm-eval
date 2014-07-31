@@ -12,15 +12,17 @@ function [dates] = getDates(house, maxNumOfDays, missingValuesThresholdSM, missi
     %   missingValuesThresholdPlug: controls the number of missing values in the
     %                               plug data
     
-    appliances = findAppliances(house);
+    appliances = findAppliances(house, dataset);
     house_str = num2str(house, '%02d');
     start_date_num = datenum(startDate, 'yyyy-mm-dd');
     end_date_num = datenum(endDate, 'yyyy-mm-dd');
     dates_strs = datestr(start_date_num:end_date_num, 'yyyy-mm-dd');
     day_idx = 1;
     num_of_days_selected = 0;
+    num_days = size(dates_strs, 1);
     idx_of_selected_days = zeros(1,maxNumOfDays);
-    while(num_of_days_selected < maxNumOfDays && day_idx <= size(dates_strs, 1))
+    while(num_of_days_selected < maxNumOfDays && day_idx <= num_days)
+        fprintf('  day %d / %d\n', day_idx, num_days);
         day_is_valid = 1;
         filename_sm = strcat(pwd, '/data/', dataset, '/smartmeter/', house_str, '/', dates_strs(day_idx,:), '.mat');
         if exist(filename_sm, 'file')
@@ -30,7 +32,7 @@ function [dates] = getDates(house, maxNumOfDays, missingValuesThresholdSM, missi
                 day_is_valid = 0;
             else
                 for appliance = appliances
-                    plug_str = getPlugNr(appliance, house);
+                    plug_str = getPlugNr(appliance, house, dataset);
                     filename_plug = strcat(pwd, '/data/', dataset, '/plugs/', house_str, '/', plug_str,'/', dates_strs(day_idx,:), '.mat');
                     if exist(filename_plug, 'file')
                         plug_consumption = read_plug_data(dataset, house, appliance, dates_strs(day_idx, :), 1 );

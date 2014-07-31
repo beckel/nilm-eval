@@ -40,7 +40,7 @@ function [] = eval_system(setup_file)
     trainingDays = setup.trainingDays;
 
     % get evaluation days
-    path_to_evalDays = strcat(pwd, '/input/evalDays/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
+    path_to_evalDays = strcat(pwd, '/input/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
     load(path_to_evalDays); % evalDays
 
     % generate summary txt file

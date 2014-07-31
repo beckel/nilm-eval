@@ -19,7 +19,7 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
     p_filtLength = setup.p_filtLength;
     p_filtLRatio = setup.p_filtLRatio;
     
-    appliances = findAppliances(household);
+    appliances = findAppliances(household, dataset);
 
     % get ground truth form plug-level data
     ground_truth_events = [];

@@ -53,7 +53,7 @@ function [summary] = baranski(evaluation_and_training_days, setup, fid)
     frequencyOfPlugEventsInCluster = analyzeClusters(clusters, clusterOfEvents, events, evaluation_days, setup);
 
     % write to text file
-    writeParametersToTxt(household, frequencyOfPlugEventsInCluster, events, clusters, clusterSizes, clusterOfEvents, fid)
+    writeParametersToTxt(household, setup.dataset, frequencyOfPlugEventsInCluster, events, clusters, clusterSizes, clusterOfEvents, fid)
 
     % generate finite state machines that correspond to potential appliances
     FSMs = generateFSMs(clusters, numOfClusters, clusterSizes, numOfFSMs, fitnessWeights, maxNumOfStates);

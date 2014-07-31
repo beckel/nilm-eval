@@ -11,7 +11,7 @@ function [consumption] = read_plug_data(dataset, house, appliance, dates_strs, g
     % adapted from Manuel Klaey
 
     household = num2str(house, '%02d');
-    plug = getPlugNr(appliance, house);        
+    plug = getPlugNr(appliance, house, dataset);        
     consumption = zeros(1, size(dates_strs,1) * (24 * 60 * 60) / granularity);
     offset = 1;
     for day=1:size(dates_strs,1)

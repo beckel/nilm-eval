@@ -3,13 +3,13 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [] = writeParametersToTxt(house, frequencyOfPlugEventsInCluster, events, clusters, clusterSizes, clusterOfEvents, fid)
+function [] = writeParametersToTxt(house, dataset, frequencyOfPlugEventsInCluster, events, clusters, clusterSizes, clusterOfEvents, fid)
 
     % write clusters to text file
     
     [~, cl_sorted] = sort(clusterSizes, 'descend');
-    appliances = findAppliances(house);
-    appliance_names = getApplianceNames(appliances);
+    appliances = findAppliances(house, dataset);
+    appliance_names = getApplianceNames(appliances, dataset);
     frequencies = zeros(size(clusters,1), 2);
     fprintf(fid, '%12s %12s %12s %12s %12s %12s %12s %20s %6s %20s %6s\n', 'power:', 'std_power', 'boost', 'std_boost:', 'duration', 'std_duration:', 'size:', 'Appliance1', ...
         'Freq1', 'Appliance2', 'Freq2');

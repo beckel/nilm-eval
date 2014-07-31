@@ -1,4 +1,4 @@
-The following process describes the steps necessary to perform an experiment with the ECO data set or with any other data set.
+The following process describes the steps necessary to perform an experiment with NILM-Eval. Later in this HOWTO, we describe how to integrate a new data set or implement a new algorithm.
 
 1) Set up the data
 ==================
@@ -8,11 +8,28 @@ NILM-Eval is ready to use with the ECO data set. All that needs to be done is do
 2) Select a configuration
 =========================
 
-The folder "Matlab/input/configurations" contains configurations for each of the algorithms. Find a suitable configuration and remember its name. It is also possible to create a new configuration by copying a template file from "Matlab/input/configurations/templates" and modify it to your needs.
+The folder "Matlab/input/configurations" contains configurations for each of the algorithms. Find a suitable configuration and note its name. It is also possible to create a new configuration by copying a template file from "Matlab/input/configurations/templates" and modify it to your needs. A configuration contains exactly one default value for each of the parameters.
 
-3) Create experiments
+3) Select period of evaluation (evaluation_days)
+================================================
+
+The period of evaluation is specified through a set of days (i.e., "evaluation_days"), which specifies the days that are included in the analysis. A user can rely on an existing set (by entering the name of a set stored in "input/autogen/evaluation_days" into the configuration file). Alternatively, it is possible to automatically create a new set by specifying the time frame (i.e., start and end date), the maximum number of days added to the set, the dataset that is used for analysis, the number of households, and two threshold parameters that denote the maximum proportion of missing measurements allowed for both smart meter and plugs on each day. Running the script "save_evaluation_days" then creates a set of evaluation days and stores it in "input/autogen/evaluations_days".
+
+4) Create experiments
 =====================
 
+Configurations can be fine-tuned by creating an experiment using the script "create_experiment.m". All parameters that are not explicitly specified in the configuration file must be specified in the experiment file (stored in 'input/experiments/'). Both the name of the experiment and the corresponding experiment file must be provided as input to the script.
+
+The following rules hold:
+
+* If a parameter is not specified in the experiment file, the parameter from the configuration is used.
+* If individual parameters are specified in the experiment file, the parameter from the configuration file is overwritten.
+* If a parameter consists of multiple values in the experiment file, a set of setup files is being created, each file contains one value of this particular parameter.
+
+This way, it is possible to create a large set of setup files with different combinations of parameters, which are specified in the experiment files.
+
+5) Create runfiles
+==================
 
 
 
@@ -21,11 +38,22 @@ The folder "Matlab/input/configurations" contains configurations for each of the
 
 
 
-(*) Create experiment
+
+
+
 
 (*) Optional: create runfiles
 
 (*) Run experiments
 
-(TODO: explain (1) configurations/experiments, (2) top level files and (3) "appliance-agnostic" characteristics of the framework)
+(*) Create results
+
+
+Integrate a new data set:
+
+Implement a new algorithm:
+
+Give overview of top level files
+
+Describe "appliance-agnostic" characteristics of the framework)
 

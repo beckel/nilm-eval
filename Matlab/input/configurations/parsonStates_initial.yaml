@@ -1,0 +1,16 @@
+algorithm: 'parsonStates'
+dataset: 'eco'
+household:
+evalDays: 'all'
+numOfResults: 1
+trainingDays: 0
+granularity: 60
+filtering: 'noFiltering'
+filtWindowLength: 5
+filtLRatio: 0.0002
+phases: 'all'
+applianceName:
+likThresh: 0.01
+windowLength: 3600
+numOfWindows: 3
+trainingType: 'noTraining'

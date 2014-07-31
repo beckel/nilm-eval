@@ -13,7 +13,7 @@ function [plugEventsList] = getPlugEvents(house, evaluation_days, setup)
     dataset = setup.dataset;
     
     % get appliances of house
-    appliances = findAppliances(house);
+    appliances = findAppliances(house, setup.dataset);
 
     idx = 1;
     plugEventsList = [];

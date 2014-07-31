@@ -1,0 +1,22 @@
+algorithm: 'parsonAppliance'
+dataset: ['eco']
+household:
+evalDays: 'first_90'
+numOfResults: 1
+trainingDays: 0
+granularity: 60
+filtering: 'noFiltering'
+filtWindowLength: 10
+filtLRatio: 0.0002
+phases: 'all'
+applianceName:
+meanOn:
+meanOff:
+varOn:
+varOff:
+transOn:
+transOff:
+likThresh: 0.01
+windowLength: 12000
+numOfWindows: 3
+trainingType: 'noTraining'

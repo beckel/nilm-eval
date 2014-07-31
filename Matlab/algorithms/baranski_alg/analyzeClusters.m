@@ -9,7 +9,7 @@ function [frequencyOfPlugEventsInCluster] = analyzeClusters(clusters, clusterOfE
 
     household = setup.household;
 
-    appliances = findAppliances(household);
+    appliances = findAppliances(household, setup.dataset);
     frequencyOfPlugEventsInCluster = zeros(size(clusters,1),length(appliances));
     for cluster = 1:size(clusters,1)
         clusterEventsList = find(clusterOfEvents == cluster);

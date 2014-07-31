@@ -13,7 +13,7 @@ power_pct = {};
 existing = {};
 for h = 1:length(households)
     house = households(h);
-    path_to_evalDays = strcat(pwd, '/input/evalDays/', dataset, '/', evalDays_type, '/', num2str(house, '%02d'), '.mat');
+    path_to_evalDays = strcat(pwd, '/input/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(house, '%02d'), '.mat');
     load(path_to_evalDays); % evalDays
 
     % total consumption
@@ -22,7 +22,7 @@ for h = 1:length(households)
     total_consumption = sum(smartmeter_consumption(~missing_values_idx_sm));
 
     % consumption of each appliance
-    appliances = findAppliances(house);
+    appliances = findAppliances(house, 'eco');
     for appliance = appliances
        plug_consumption = read_plug_data(dataset, house, appliance, evalDays, granularity);
        missing_values_idx_plug = plug_consumption == -1;
