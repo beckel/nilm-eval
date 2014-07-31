@@ -1,7 +1,7 @@
-configuration_name: ['parsonAppliance_initial']
+configuration_name: 'parsonAppliance_initial'
 experiment_name: []
 algorithm: 'parsonAppliance'
-dataset: ['eco']
+dataset: 'eco'
 household:
 evalDays: 'first_90'
 numOfResults: 1

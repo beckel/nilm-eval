@@ -5,7 +5,7 @@
 
 function run_experiment()
 
-    experiment_folder = 'input/autogen/experiments/baranski_default/';
+    experiment_folder = 'input/autogen/experiments/kolter_default/';
     
     % iteratively run NILM-Eval for each setup file
     setup_files = dir([experiment_folder, '*.yaml']);

@@ -25,7 +25,7 @@ function [result] = read_smartmeter_data(dataset, house, dates_strs, granularity
             if (granularity > 1)
                  % powerallphases
                  eval(strcat('[mat,padded] = vec2mat(smartmeter_data.',option, ',', num2str(granularity),');'));
-                 assert(padded==0, '%i is not a permissable interval (does not divide into 24h)', granularity);
+                 assert(padded == 0, [num2str(granularity), ' is not a permissable interval (does not divide into 24h)']);
                  result(1,offset:offset + (24 * 60 * 60)/granularity -1) = mean(mat, 2);            
             else
                  eval(strcat('result(1,offset:offset + (24 * 60 * 60)/granularity -1) = smartmeter_data.',option,';')); 

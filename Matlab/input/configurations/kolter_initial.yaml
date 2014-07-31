@@ -1,4 +1,4 @@
-configuration_name: ['kolter_initial']
+configuration_name: 'kolter_initial'
 experiment_name: []
 algorithm: 'kolter'
 dataset: 'eco'

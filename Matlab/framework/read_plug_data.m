@@ -23,7 +23,7 @@ function [consumption] = read_plug_data(dataset, house, appliance, dates_strs, g
             eval(['clear ' vars.name ';']);
             if (granularity > 1)
                 [mat,padded] = vec2mat(smartmeter_data.consumption,granularity);
-                assert(padded==0, '%i is not a permissable interval (does not divide into 24h)', granularity);
+                assert(padded == 0, [num2str(granularity), ' is not a permissable interval (does not divide into 24h)']);
                 consumption(1,offset:offset + (24 * 60 * 60) / granularity -1) = mean(mat, 2);           
             else
                 consumption(1,offset:offset + (24 * 60 * 60) / granularity -1) = smartmeter_data.consumption;

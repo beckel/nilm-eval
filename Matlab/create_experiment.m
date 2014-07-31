@@ -7,14 +7,11 @@
 % definition.
 function create_experiment()
 
-% baranski/default.yaml
-% parson/parsonAppliance_fridge.yaml
-% kolter/default.yaml
     %% SPECIFY CONFIGURATION AND EXPERIMENT
 %     configuration_input = 'input/configurations/weiss_initial.yaml';
 %     experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
-    configuration_input = 'input/configurations/baranski_initial.yaml';
-    experiment_input = 'input/experiments/baranski/default.yaml';
+    configuration_input = 'input/configurations/kolter_initial.yaml';
+    experiment_input = 'input/experiments/kolter/default.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);
