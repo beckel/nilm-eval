@@ -65,3 +65,4 @@ Give overview of top level files
 
 Describe "appliance-agnostic" characteristics of the framework)
 
+QUICK
