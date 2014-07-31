@@ -1,5 +1,0 @@
-{algorithm: weiss, dataset: eco, household: 2.0, evalDays: first_90, numOfResults: 1.0,
-  trainingDays: 15.0, granularity: 1.0, filtering: meanMedian, filtLength: 5.0, filtLRatio: 2.0E-4,
-  plevelMinLength: 5.0, maxEventDuration: 20.0, eventThreshold: 5.0, p_edgeThreshold: 5.0,
-  p_filtering: meanMedian, p_filtLength: 5.0, p_filtLRatio: 2.0E-4, configuration: weiss_initial,
-  experiment: 2014-07-01-weiss-r, r: 1.5, setup_name: 1-5}

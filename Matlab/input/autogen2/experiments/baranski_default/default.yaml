@@ -1,6 +1,0 @@
-{configuration_name: baranski_initial, experiment_name: baranski_default, algorithm: baranski,
-  dataset: eco, household: 2.0, evalDays: first_30, numOfResults: 1.0, trainingDays: 0.0,
-  granularity: 1.0, phases: all, numOfClusters: 20.0, threshold: 5.0, maxSeqLength: 3600.0,
-  numOfFSMs: 12.0, maxNumOfStates: 2.0, dim1Weight: 1.0, dim2Weight: 1.0, dim3Weight: 1.0,
-  fitWeight1: 1.0, fitWeight2: 1.0, fitWeight3: 1.0, configuration: baranski_initial,
-  experiment: baranski_default, setup_name: default}
