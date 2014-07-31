@@ -1,3 +1,5 @@
+configuration_name: ['parsonAppliance_initial']
+experiment_name: []
 algorithm: 'parsonAppliance'
 dataset: ['eco']
 household:

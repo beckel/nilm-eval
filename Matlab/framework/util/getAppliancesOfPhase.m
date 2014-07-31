@@ -3,11 +3,11 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [ appliances ] = getAppliancesOfPhase( household, phase )
+function [ appliances ] = getAppliancesOfPhase(dataset, household, phase)
 
     % returns all appliances of a household that run on the specified phase
 
-    phase_matrix = getPhaseMatrix();         
+    phase_matrix = getPhaseMatrix(dataset);         
     appliances = find(phase_matrix(:,household) == phase);
 
 end

@@ -1,3 +1,5 @@
+configuration_name: ['kolter_initial']
+experiment_name: []
 algorithm: 'kolter'
 dataset: 'eco'
 household: 

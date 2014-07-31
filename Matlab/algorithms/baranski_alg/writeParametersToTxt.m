@@ -9,7 +9,7 @@ function [] = writeParametersToTxt(house, dataset, frequencyOfPlugEventsInCluste
     
     [~, cl_sorted] = sort(clusterSizes, 'descend');
     appliances = findAppliances(house, dataset);
-    appliance_names = getApplianceNames(appliances, dataset);
+    appliance_names = getApplianceNames(appliances);
     frequencies = zeros(size(clusters,1), 2);
     fprintf(fid, '%12s %12s %12s %12s %12s %12s %12s %20s %6s %20s %6s\n', 'power:', 'std_power', 'boost', 'std_boost:', 'duration', 'std_duration:', 'size:', 'Appliance1', ...
         'Freq1', 'Appliance2', 'Freq2');

@@ -1,3 +1,5 @@
+configuration_name: ['parsonStates_initial']
+experiment_name: []
 algorithm: 'parsonStates'
 dataset: 'eco'
 household:

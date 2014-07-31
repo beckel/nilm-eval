@@ -1,3 +1,6 @@
+configuration_name: ''
+experiment_name: ''
+algorithm: ['']
 dataset: ['']
 household: []
 evalDays: ['']

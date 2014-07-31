@@ -7,16 +7,22 @@
 % definition.
 function create_experiment()
 
-    configuration_name = 'weiss_initial';
-    configuration_input = 'input/configurations/weiss_initial.yaml';
-    experiment_name = '2014-07-01-all-households';
-    experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
-    folder_setup_files = ['input/autogen/experiments/', experiment_name, '/'];
+% baranski/default.yaml
+% parson/parsonAppliance_fridge.yaml
+% kolter/default.yaml
+    %% SPECIFY CONFIGURATION AND EXPERIMENT
+%     configuration_input = 'input/configurations/weiss_initial.yaml';
+%     experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
+    configuration_input = 'input/configurations/baranski_initial.yaml';
+    experiment_input = 'input/experiments/baranski/default.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);
+    configuration_name = configuration.configuration_name;
     experiment = ReadYaml(experiment_input);
-    
+    experiment_name = cell2mat(experiment.experiment_name);
+    folder_setup_files = ['input/autogen/experiments/', experiment_name, '/'];
+
     % prepare experiment struct
     field_names = fieldnames(configuration);
     experiment_parameters = {};

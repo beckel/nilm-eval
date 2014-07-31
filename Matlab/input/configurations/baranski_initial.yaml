@@ -1,3 +1,5 @@
+configuration_name: 'baranski_initial'
+experiment_name: []
 algorithm: 'baranski'
 dataset: 'eco'
 household: 

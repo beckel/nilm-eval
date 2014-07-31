@@ -18,7 +18,7 @@ The period of evaluation is specified through a set of days (i.e., "evaluation_d
 4) Create experiments
 =====================
 
-Configurations can be fine-tuned by creating an experiment using the script "create_experiment.m". All parameters that are not explicitly specified in the configuration file must be specified in the experiment file (stored in 'input/experiments/'). Both the name of the experiment and the corresponding experiment file must be provided as input to the script.
+Configurations can be fine-tuned by creating an experiment using the script "create_experiment.m". All parameters that are not explicitly specified in the configuration file must be specified in the experiment file (stored in 'input/experiments/'). Both the name of the experiment and the corresponding experiment file must be provided as input to the script. You need to enter both the name of the experiment and the name of the configuration in "create_experiment.m".
 
 The following rules hold:
 
@@ -28,8 +28,23 @@ The following rules hold:
 
 This way, it is possible to create a large set of setup files with different combinations of parameters, which are specified in the experiment files.
 
-5) Create runfiles
-==================
+5) Create runfiles and/or run experiment
+========================================
+
+Step 4) results in one or more setup files. NILM-Eval can be run in two ways:
+1) Running "nilm-eval.m", which requires as input the location of a single setup file
+2) Running "run_experiment.m", which requires as input the location of a folder that contains one or more setup files. 
+
+This process can be parallelized by calling "nilm_eval.m" for each of the setup files individually. "create_runfile.py" is, for instance, a python script that generates a command for each setup file to run NILM-Eval with a large number of setup files on the ETH Zurich Brutus computing cluster (brutus.ethz.ch).
+
+6) Results
+==========
+
+For each of the experiments:
+	* Summary
+	* Details
+	
+Encoding:
 
 
 
@@ -40,13 +55,6 @@ This way, it is possible to create a large set of setup files with different com
 
 
 
-
-
-(*) Optional: create runfiles
-
-(*) Run experiments
-
-(*) Create results
 
 
 Integrate a new data set:

@@ -1,3 +1,5 @@
+configuration_name: ['weiss_initial']
+experiment_name: []
 algorithm: 'weiss'
 dataset: 'eco'
 household:

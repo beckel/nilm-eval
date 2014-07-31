@@ -25,7 +25,7 @@ function [sig_database] = buildSignatureDatabase(setup, trainingDays)
         power = getPower(dataset, household, trainingDays, granularity, phase);
 
         % get appliance consumption
-        appliances = getAppliancesOfPhase(household, phase);
+        appliances = getAppliancesOfPhase(dataset, household, phase);
         for applianceID = appliances'
             % apply filter to appliance consumption data and get edges 
             appliance_consumption = read_plug_data(dataset, household, applianceID, trainingDays, granularity);

@@ -3,14 +3,7 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [] = eval_system(setup_file)
-    
-    % function that evaluates a NILM algorithm
-    %
-    % INPUT: 
-    % setup_file: contains name of algorithm/configuration and the
-    %   parameter values
-    %
+function [] = nilm_eval(setup_file)
     
     startup;
 
@@ -25,12 +18,7 @@ function [] = eval_system(setup_file)
     experiment = setup.experiment;
     setup_name = setup.setup_name;
     
-    % create folder for brutus lsf files
-    path_to_experiment = strcat(algorithm, '_', configuration, '/', experiment);
-    path_to_brutus_lsf_files = strcat('results/brutus/', path_to_experiment);
-    mkdir(path_to_brutus_lsf_files);
-
-    fprintf('\nrunning %s algorithm with %s configuration and % s setup file ... \n\n', algorithm, configuration, setup_name)
+    fprintf('running %s algorithm with %s configuration and % s setup file ... \n', algorithm, configuration, setup_name)
 
     % load parameters of algorithm/configuration
     dataset = setup.dataset;
@@ -40,17 +28,21 @@ function [] = eval_system(setup_file)
     trainingDays = setup.trainingDays;
 
     % get evaluation days
-    path_to_evalDays = strcat(pwd, '/input/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
+    path_to_evalDays = strcat(pwd, '/input/autogen/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
     load(path_to_evalDays); % evalDays
 
     % generate summary txt file
     path_to_results_summary = strcat('results/summary/', algorithm, '/', configuration, '/', experiment , '/', setup_name);
-    mkdir(path_to_results_summary);
+    if ~exist(path_to_results_summary, 'dir')
+        mkdir(path_to_results_summary);
+    end
     fid = fopen(strcat(path_to_results_summary, '/summary.txt'), 'w');
     
     % generate folder to store detailed results
     path_to_results_details = strcat('results/details/', algorithm, '/', configuration, '/', experiment , '/', setup_name);
-    mkdir(path_to_results_details);
+    if ~exist(path_to_results_details, 'dir')
+        mkdir(path_to_results_details);
+    end
 
     summary = struct;
     for i = 1:numOfResults

@@ -1,3 +1,4 @@
+experiment_name: ['parson_appliance_fridge_training']
 dataset: []
 household: [2]
 evalDays: []

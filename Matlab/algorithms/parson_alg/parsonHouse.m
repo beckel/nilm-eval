@@ -65,7 +65,7 @@ function [result] = parsonHouse(evaluation_and_training_days, params_struct)
             total_consumption = total_consumption_matrix(phase_of_appliance, :);
             t_data = t_data_matrix(phase_of_appliance, :);
             if strcmpi(method, 'iterative')
-                appliances_of_same_phase = getAppliancesOfPhase(house, phase_of_appliance);
+                appliances_of_same_phase = getAppliancesOfPhase(dataset, house, phase_of_appliance);
                 idx_of_appliance = find(appliance == appliances_of_same_phase);
                 if idx_of_appliance > 1
                     total_consumption = total_consumption - sum(result.consumption(appliances_of_same_phase(1:idx_of_appliance-1), :),1);
@@ -149,7 +149,7 @@ function [result] = parsonHouse(evaluation_and_training_days, params_struct)
         resCounter = resCounter + 1;
 
     end
-    result.appliance_names = getApplianceNames(appliances, dataset);
+    result.appliance_names = getApplianceNames(appliances);
 end
 
 
