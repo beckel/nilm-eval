@@ -1,5 +1,6 @@
 Matlab/data/eco/
 Matlab/data/redd/
 Matlab/results/*
-Matlab/input/autogen/*
+Matlab/input/autogen/evaluation_days/
+Matlab/input/autogen/experiments/
 .DS_Store
