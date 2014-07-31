@@ -1,0 +1,2 @@
+Results are (automatically) stored in this folder.
+
