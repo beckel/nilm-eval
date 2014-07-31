@@ -1,0 +1,10 @@
+dataset: ['thun']
+household: [2]
+evalDays: ['completeSM-first7']
+numOfResults: [1]
+trainingDays: [0]
+granularity: [1]
+filtering: ['noFiltering']
+fWindowLength: [5]
+filtLRatio: [0.0002]
+

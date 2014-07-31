@@ -5,17 +5,21 @@ The following process describes the steps necessary to perform an experiment wit
 
 NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco". The directory and file structure is explained in the documentation file "Documentation/consumption_data.txt". When using other data sets, the first step consists in creating the corresponding Matlab files.
 
-2) Create a configuration
+2) Select a configuration
 =========================
 
-The folder "Matlab/input/configurations" contains default configurations for each of the algorithms. 
+The folder "Matlab/input/configurations" contains configurations for each of the algorithms. Find a suitable configuration and remember its name. It is also possible to create a new configuration by copying a template file from "Matlab/input/configurations/templates" and modify it to your needs.
+
+3) Create experiments
+=====================
 
 
 
 
 
 
-... tbd.
+
+
 
 (*) Create experiment
 
@@ -23,5 +27,5 @@ The folder "Matlab/input/configurations" contains default configurations for eac
 
 (*) Run experiments
 
-(todo: explain (1) "config" folder and (2) top level files and (3) aspect that stuff is "appliance-agnostic" (4) make experiment generation ... more configurable)
+(TODO: explain (1) configurations/experiments, (2) top level files and (3) "appliance-agnostic" characteristics of the framework)
 

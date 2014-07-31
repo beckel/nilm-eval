@@ -3,8 +3,12 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [] = create_experiment(algorithm, configuration, experiment_name)
+function create_experiment()
 
+    algorithm = 'weiss';
+    configuration = 'weiss_initial';
+    experiment_name = '2014-07-1-weiss-initial-buildsys';
+    
     % create a new experiment
 
     % load values of default configuration
