@@ -8,8 +8,8 @@
 function create_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
-    experiment_input = 'input/experiments/parson/parsonAppliance_fridge.yaml';
+    configuration_input = 'input/configurations/weiss_initial.yaml';
+    experiment_input = 'input/experiments/parson/2014-07-01-r.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);

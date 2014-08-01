@@ -6,8 +6,8 @@
 function run_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
-    experiment_input = 'input/experiments/parson/parsonAppliance_fridge.yaml';
+    configuration_input = 'input/configurations/weiss_initial.yaml';
+    experiment_input = 'input/experiments/parson/2014-07-01-r.yaml';
     
     configuration = ReadYaml(configuration_input);
     algorithm = configuration.algorithm;
@@ -18,6 +18,9 @@ function run_experiment()
     
     % iteratively run NILM-Eval for each setup file
     setup_files = dir([experiment_folder, '*.yaml']);
+    if isempty(setup_files)
+        error('No setup file available - first create a setup file using "create_experiment.m"');
+    end
     for i = 1:length(setup_files)
         setup_file = setup_files(i).name;
         nilm_eval([experiment_folder, setup_file]);
