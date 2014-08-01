@@ -1,0 +1,18 @@
+QUICK Guide:
+============
+
+This is a quick guide how to run an algorithm (i.e., Weiss) on a data set (i.e., the ECO data set):
+
+1) Download the data (Matlab files) and copy it to "data/eco/plugs/" and "data/eco/smartmeter", respectively. The subfolders of "smartmeter" and "plugs" should be named "01", "02", ..., which represents the individual households.
+2) Perform the experiment on 90 day consumption data: Set "config_file = 'input/evaluation_days/first_90.yaml';" in "save_evaluation_days.m" and run the script.
+3) Run Weiss' algorithm on household 2, using different parameter values for the scaling parameter 'r'. This is an existing experiment, which can be configured as follows:
+
+Add the following two lines to "create_experiment.m" and "run_experiment.m":
+
+    configuration_input = 'input/configurations/weiss_initial.yaml';
+    experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
+
+Now run these two scripts subsequently.
+
+4) Done, the results are stored in "results/summary/weiss/..." and "results/details/weiss/..."
+

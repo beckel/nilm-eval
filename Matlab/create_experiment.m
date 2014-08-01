@@ -8,17 +8,16 @@
 function create_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-%     configuration_input = 'input/configurations/weiss_initial.yaml';
-%     experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
-    configuration_input = 'input/configurations/kolter_initial.yaml';
-    experiment_input = 'input/experiments/kolter/default.yaml';
+    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
+    experiment_input = 'input/experiments/parson/parsonAppliance_fridge.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);
     configuration_name = configuration.configuration_name;
     experiment = ReadYaml(experiment_input);
     experiment_name = cell2mat(experiment.experiment_name);
-    folder_setup_files = ['input/autogen/experiments/', experiment_name, '/'];
+    algorithm = configuration.algorithm;
+    folder_setup_files = ['input/autogen/experiments/', algorithm, '/', experiment_name, '/'];
 
     % prepare experiment struct
     field_names = fieldnames(configuration);

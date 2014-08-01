@@ -5,7 +5,16 @@
 
 function run_experiment()
 
-    experiment_folder = 'input/autogen/experiments/kolter_default/';
+    %% SPECIFY CONFIGURATION AND EXPERIMENT
+    configuration_input = 'input/configurations/parsonAppliance_initial.yaml';
+    experiment_input = 'input/experiments/parson/parsonAppliance_fridge.yaml';
+    
+    configuration = ReadYaml(configuration_input);
+    algorithm = configuration.algorithm;
+    experiment = ReadYaml(experiment_input);
+    experiment_name = cell2mat(experiment.experiment_name);
+    
+    experiment_folder = ['input/autogen/experiments/', algorithm, '/', experiment_name, '/'];
     
     % iteratively run NILM-Eval for each setup file
     setup_files = dir([experiment_folder, '*.yaml']);
@@ -13,4 +22,7 @@ function run_experiment()
         setup_file = setup_files(i).name;
         nilm_eval([experiment_folder, setup_file]);
     end
+    
+    summarize_results(configuration, experiment)
+            
 end

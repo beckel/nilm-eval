@@ -3,20 +3,20 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [] = saveUsedParameterValues(param_names, results_folder, experiment_instances, result_config)
+function [] = saveUsedParameterValues(param_names, results_folder, experiment_instances)
 
     % create or update 'usedParameterValues.mat' file. This file contains all values of each experiment parameter
 
     % initialize usedParameterValues
-    usedParameterValues = struct;
+    parameters = struct;
     for i = 1:length(param_names)
-        usedParameterValues.(param_names{i}) = {};
+        parameters.(param_names{i}) = {};
     end
-    usedParameterValues.appliance_names = {}; 
-    usedParameterValues.appliance_metrics = {};
-    usedParameterValues.event_names = {}; 
-    usedParameterValues.event_metrics = {};
-    usedParameterValues.combine_results = result_config.combine_results;
+    parameters.appliance_names = {}; 
+    parameters.appliance_metrics = {};
+    parameters.event_names = {}; 
+    parameters.event_metrics = {};
+    parameters.combine_results = {'min', 'max', 'mean'};
 
     for i = 1:length(experiment_instances)
         param_values = strsplit('_', experiment_instances{i}); 
@@ -24,8 +24,8 @@ function [] = saveUsedParameterValues(param_names, results_folder, experiment_in
         % 'usedParameterValues', add the parameter value
         for j = 1:length(param_values)
             param_value = strrep(param_values{j}, '-', '.');
-            if (~ismember(param_value, usedParameterValues.(param_names{j})))
-                usedParameterValues.(param_names{j}){end+1} = param_value;
+            if (~ismember(param_value, parameters.(param_names{j})))
+                parameters.(param_names{j}){end+1} = param_value;
             end
         end
 
@@ -33,18 +33,18 @@ function [] = saveUsedParameterValues(param_names, results_folder, experiment_in
         % add all new event names and event metrics (fscore etc.) to
         % 'usedParameterValues'
         if isfield(summary, 'events')
-            usedParameterValues = updateEventNames(usedParameterValues, summary);
-            usedParameterValues = updateEventMetrics(usedParameterValues, summary);
+            parameters = updateEventNames(parameters, summary);
+            parameters = updateEventMetrics(parameters, summary);
         end
         % add all new appliance names and consumption metrics (rms etc.) to
         % 'usedParameterValues'
         if isfield(summary, 'consumption')
-            usedParameterValues = updateApplianceNames(usedParameterValues, summary);
-            usedParameterValues = updateApplianceMetrics(usedParameterValues, summary);
+            parameters = updateApplianceNames(parameters, summary);
+            parameters = updateApplianceMetrics(parameters, summary);
         end
         clear summary;
     end
 
-    save(strcat(results_folder, '/usedParameterValues.mat'), 'usedParameterValues');
+    save(strcat(results_folder, '/parameters.mat'), 'parameters');
 end
 

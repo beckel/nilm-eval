@@ -85,11 +85,13 @@ function [result] = weiss(evaluation_and_training_days, setup, fid)
 
         % assign each event to its best match in the signature database
         [signatureIDs, dist] = knnsearch(signatures(phases_of_signatures == phase, 1:2), event_vecs(:,1:2));        
-        dist_threshold = r*signatureLength(signatureIDs,1) + event_vecs(:,4);
-        matching_valid = dist < dist_threshold;
-        signatureIDs = signatureIDs + signatures_in_previous_phases;
-        result.events = [result.events; timeOfEvents(matching_valid), signatureIDs(matching_valid), event_vecs(matching_valid, 1:3)];
-        signatures_in_previous_phases = signatures_in_previous_phases + nnz(phases_of_signatures == phase);
+        if ~isempty(signatureIDs)
+            dist_threshold = r*signatureLength(signatureIDs,1) + event_vecs(:,4);
+            matching_valid = dist < dist_threshold;
+            signatureIDs = signatureIDs + signatures_in_previous_phases;
+            result.events = [result.events; timeOfEvents(matching_valid), signatureIDs(matching_valid), event_vecs(matching_valid, 1:3)];
+            signatures_in_previous_phases = signatures_in_previous_phases + nnz(phases_of_signatures == phase);
+        end
     end
 
     % store labeled events

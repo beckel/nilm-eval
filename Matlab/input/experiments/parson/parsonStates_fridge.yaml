@@ -1,4 +1,4 @@
-experiment_name: ['parson_states_fridge']
+experiment_name: ['states_fridge']
 dataset: []
 household: [2]
 evalDays: []

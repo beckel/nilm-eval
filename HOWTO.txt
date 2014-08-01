@@ -1,19 +1,23 @@
 The following process describes the steps necessary to perform an experiment with NILM-Eval. Later in this HOWTO, we describe how to integrate a new data set or implement a new algorithm.
 
+
 1) Set up the data
 ==================
 
 NILM-Eval is ready to use with the ECO data set. All that needs to be done is download the Matlab files of the ECO data set from http://www.vs.inf.ethz.ch/res/show.html?what=eco-data and copy it to the folder "data/eco". The directory and file structure is explained in the documentation file "Documentation/consumption_data.txt". When using other data sets, the first step consists in creating the corresponding Matlab files.
 
-2) Select a configuration
+
+2) Select period of evaluation (evaluation_days)
+================================================
+
+The period of evaluation is specified through a set of days (i.e., "evaluation_days"), which denotes the days that are included in the analysis. A user can rely on an existing set (by entering the name of a set stored in "input/autogen/evaluation_days" into the configuration file). Alternatively, it is possible to automatically create a new set by creating a configuration file in "input/evaluation_days/", which contains the time frame (i.e., start and end date), the maximum number of days added to the set, the dataset that is used for analysis, the number of households, and two threshold parameters that denote the maximum proportion of missing measurements allowed for both smart meter and plugs on each day. Running the script "save_evaluation_days" then creates a set of evaluation days and stores it in "input/autogen/evaluations_days".
+
+
+3) Select a configuration
 =========================
 
 The folder "Matlab/input/configurations" contains configurations for each of the algorithms. Find a suitable configuration and note its name. It is also possible to create a new configuration by copying a template file from "Matlab/input/configurations/templates" and modify it to your needs. A configuration contains exactly one default value for each of the parameters.
 
-3) Select period of evaluation (evaluation_days)
-================================================
-
-The period of evaluation is specified through a set of days (i.e., "evaluation_days"), which specifies the days that are included in the analysis. A user can rely on an existing set (by entering the name of a set stored in "input/autogen/evaluation_days" into the configuration file). Alternatively, it is possible to automatically create a new set by specifying the time frame (i.e., start and end date), the maximum number of days added to the set, the dataset that is used for analysis, the number of households, and two threshold parameters that denote the maximum proportion of missing measurements allowed for both smart meter and plugs on each day. Running the script "save_evaluation_days" then creates a set of evaluation days and stores it in "input/autogen/evaluations_days".
 
 4) Create experiments
 =====================
@@ -28,41 +32,90 @@ The following rules hold:
 
 This way, it is possible to create a large set of setup files with different combinations of parameters, which are specified in the experiment files.
 
-5) Create runfiles and/or run experiment
-========================================
+
+5) Run experiment
+=================
 
 Step 4) results in one or more setup files. NILM-Eval can be run in two ways:
 1) Running "nilm-eval.m", which requires as input the location of a single setup file
 2) Running "run_experiment.m", which requires as input the location of a folder that contains one or more setup files. 
 
-This process can be parallelized by calling "nilm_eval.m" for each of the setup files individually. "create_runfile.py" is, for instance, a python script that generates a command for each setup file to run NILM-Eval with a large number of setup files on the ETH Zurich Brutus computing cluster (brutus.ethz.ch).
+This process can be parallelized by calling "nilm_eval.m" for each of the setup files individually. "tools/create_runfile.py" is, for instance, a python script that generates a command for each setup file to run NILM-Eval with a large number of setup files on the ETH Zurich Brutus computing cluster (brutus.ethz.ch). Note that in this case, no summary of the whole experiment is generated (or must be generated manually using "framework/summarize_results.m"). This only affects the summary of the whole experiment - all individual results are being created anyway.
+
 
 6) Results
 ==========
 
-For each of the experiments:
-	* Summary
-	* Details
-	
-Encoding:
+After running the experiment, NILM-Eval automatically stores the results in folder "results". For each setup file, it creates:
+* A summary of the results (e.g., performance metrics, cluster centroids) depending on the algorithm ("summary.txt" & "summary.mat")
+* Detailed results: Estimated consumption of the appliances, detailed information on estimated events (results1.mat)
+The directory structure encodes the name of the algorithm and experiment parameters, such that multiple experiments can be performed in parallel.
+
+In addition, NILM-Eval summarizes the results of the experiment (i.e., combines all setup files) into "experiment_result.mat"
+
+
+Overview of the top level files
+===============================
+
+* create_experiment: Creates a new experiment, using as input two configuration files (a configuration and experiment description) [ in "input/configurations" and "input/experiments" ]
+* nilm_eval: Runs NILM-Eval using a single setup file (provided as input) [ in "input/autogen" ]
+* run_experiment: Runs NILM-Eval given an experiment. As input, a folder is provided that contains all setup files of the experiment [ in "input/autogen" ]
+* save_evaluation_days: Parses the data and finds days that are suitable to perform the experiment according to a config file provided as input [ in "input/evaluation_days" ]
 
 
 
+Integrating a new data set
+==========================
+
+The folder structure of the data set is as follows:
+
+data
+  +eco
+    +smartmeter
+	   01
+	  +02
+	     2013-02-07.mat
+		 ...
+	   ...
+    plugs
+	   01
+	  +02
+	     01
+		+02
+		   2013-02-07.mat
+		   ...
+		...
+	  ...
+	  
+--> data/{DATASET}/smartmeter/{HOUSEHOLD}/{DATE}
+or data/{DATASET}/plugs/{HOUSEHOLD}/{PLUGS}/{DATE}
+
+Any other data format must be converted to this format and folder structure. A detailed description of the contents of the file(s) is given in "Documentation/consumption_data.txt".
+
+Integrating a new data set requires to adapt the following config files:
+
+* "config/get_evaluation_threshold.m": Threshold that defines the minimum consumption of an appliance such that it counts as "switched on". 
+* "config/getApplianceHouseMatrix.m": Assigns appliances to households and defines the corresponding plug numbers
+* "config/getPhaseMatrix.m": Specifies which appliance runs on which phase
+* "config/getThresholdDiffOnOff.m": Specifies a threshold for which appliance - An increase/decrease in power consumption is considered an event if and only if it is higher than this threshold.
+
+Note that the sequence of appliances in each of those matrices must correspond to the labels in "config/getCellWithApplianceNames.m". In case an appliance is added to the framework, each of those matrices must be adapted. 
 
 
+Implement a new algorithm
+=========================
 
+The interface to implement a new algorithm is simple:
 
+function [data] = algorithm(days, setup, fid)
 
+* "days": Cell with two entries: days{1} consists of evaluation days, days{2} can be used for training
+* "setup": Parameters that specify dataset, household, granularity of the input data, ... including user-defined parameters given by the configuration/experiment files
+* "fid": File descriptor that can be used to store algorithm-specific results
+	  	  
+As a result, the algorithm either provides estimated consumption of the appliance(s) or event labels including time stamps of the events.
+		  
+		  
 
+	  
 
-
-
-Integrate a new data set:
-
-Implement a new algorithm:
-
-Give overview of top level files
-
-Describe "appliance-agnostic" characteristics of the framework)
-
-QUICK

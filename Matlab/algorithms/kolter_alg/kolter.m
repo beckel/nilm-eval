@@ -127,7 +127,7 @@ function [data] = kolter(days, setup, fid)
     paramsAfamap.dlambda = Inf;
     paramsAfamap.dSig = var(diff(data));
     paramsAfamap.Sig = var(data);
-    [X0,Z,G] = myAfamap(plevel.mean', plevel.duration', mu, P, paramsAfamap);
+    [X0,Z,G] = myAfamap(plevel.mean', mu, plevel.duration', P, paramsAfamap);
         
 end
 

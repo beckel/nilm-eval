@@ -10,16 +10,24 @@
 
 function save_evaluation_days()
     
-    name = 'first_30'; % Name of the evaluation_day file
-    dataset = 'eco';
-    houses = [1,2,3,4,5,6];
-    maxNumOfDays = 30;
-    startDate = '2012-06-01'; 
-    endDate = '2013-01-31';
-	missingValuesThresholdSM = 0.1; % If the proportion of missing values on a specific day D is higher than missingValuesThresholdSM, D is not included in the set of evaluation days.
-    missingValuesThresholdPlug = 0.3; % If the proportion of missing values for any of the plugs on a specific day D is higher than missingValuesThresholdPlug, D is not included in the set of evaluation days.
+    %% CONFIG HERE (name of the evaluation_day file)
+    config_file = 'input/evaluation_days/all.yaml';
+    
+    config = ReadYaml(config_file);
+    
+    name = config.name;
+    dataset = config.dataset;
+    houses = config.houses;
+    maxNumOfDays = config.maxNumOfDays;
+    startDate = config.startDate;
+    endDate = config.endDate;
+    % If the proportion of missing values on a specific day D is higher than missingValuesThresholdSM, D is not included in the set of evaluation days.
+    missingValuesThresholdSM = config.missingValuesThresholdSM; 
+    % If the proportion of missing values for any of the plugs on a specific day D is higher than missingValuesThresholdPlug, D is not included in the set of evaluation days.
+    missingValuesThresholdPlug = config.missingValuesThresholdPlug; 
 
-    for house = houses
+    for h = 1:length(houses)
+        house = houses{h};
         fprintf('Processing house %d\n', house);
         evalDays = getDates(house, maxNumOfDays, missingValuesThresholdSM, missingValuesThresholdPlug, dataset, startDate, endDate);    
         path_to_evalDays = strcat(pwd, '/input/autogen/evaluation_days/', dataset, '/', name);
