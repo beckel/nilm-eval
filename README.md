@@ -10,9 +10,9 @@ By encapsulating those parameters in configurations, NILM-Eval further allows th
 
 For more detailed information refer to the following sources:
 
-* Christian Beckel, Wilhelm Kleiminger, Romano Cicchetti, Thorsten Staake, Silvia Santini, [The ECO Data Set and the Performance of Non-Intrusive Load Monitoring Algorithms](http://www.vs.inf.ethz.ch/publ/papers/beckel-2014-nilm.pdf), Proceedings of the 1st ACM International Conference on Embedded Systems for Energy-Efficient Buildings (BuildSys 2014). Memphis, TN, USA. ACM, November 2014.
+* C. Beckel, W. Kleiminger, R. Cicchetti, T. Staake, S. Santini: [The ECO Data Set and the Performance of Non-Intrusive Load Monitoring Algorithms](http://www.vs.inf.ethz.ch/publ/papers/beckel-2014-nilm.pdf). Proceedings of the 1st ACM International Conference on Embedded Systems for Energy-Efficient Buildings (BuildSys 2014). Memphis, TN, USA. ACM, November 2014.
 
-* R. Cicchetti, [NILM-Eval: Disaggregation of real-world electricity consumption data](http://www.vs.inf.ethz.ch/res/project/eco-data-files/masters_thesis_chicchetti.pdf), Master's thesis, ETH Zurich, 2014.
+* R. Cicchetti: [NILM-Eval: Disaggregation of real-world electricity consumption data](http://www.vs.inf.ethz.ch/res/project/eco-data-files/masters_thesis_chicchetti.pdf). Master's thesis, ETH Zurich, 2014.
 
 * [The ECO dataset](http://www.vs.inf.ethz.ch/res/show.html?what=eco-data): Together with *Energie Thun*, a Swiss energy provider, we collected the ECO data set (Electricity Consumption and Occupancy). Using NILM-Eval, we evaluated the performance of four NILM algorithms on the ECO data set.
 
