@@ -11,7 +11,7 @@
 function save_evaluation_days()
     
     %% CONFIG HERE (name of the evaluation_day file)
-    config_file = 'input/evaluation_days/all.yaml';
+    config_file = 'input/evaluation_days/plug_statistics.yaml';
     
     config = ReadYaml(config_file);
     

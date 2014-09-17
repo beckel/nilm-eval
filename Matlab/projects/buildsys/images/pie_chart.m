@@ -7,19 +7,19 @@ figure_path = 'projects/buildsys/images/pie_chart/';
 fontsize = 9;
 % width = 4.8;
 % height = 4.8;
-households = [ 5, 6 ];
+households = [ 5 ];
 if ~exist(figure_path, 'dir')
     mkdir(figure_path);
 end
 
 for household = households
     %params
-    dataset = 'thun';
+    dataset = 'eco';
     % evalDays_type = 'completeSM_first90';
-    evalDays_type = 'all';
+    evalDays_type = 'plug_statistics';
     granularity = 1;
 
-    path_to_evalDays = strcat(pwd, '/input/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
+    path_to_evalDays = strcat(pwd, '/input/autogen/evaluation_days/', dataset, '/', evalDays_type, '/', num2str(household, '%02d'), '.mat');
     load(path_to_evalDays); % evalDays
 
     % total consumption
