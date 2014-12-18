@@ -6,12 +6,12 @@ base_folder_smartmeter = 'data/eco/smartmeter/';
 base_folder_plugs = 'data/eco/plugs/';
 target_folder_smartmeter = 'data/eco/smartmeter_csv/';
 target_folder_plugs = 'data/eco/plugs_csv/';
-process_smart_meter = 0;
-process_plugs = 1;
+process_smart_meter = 1;
+process_plugs = 0;
 
 % household = [ 2:6 ];
 % plugs = [ 1:12 ];
-household = [ 5 ];
+household = [ 4 ];
 plugs = [ 3, 8 ];
 
 for h = household

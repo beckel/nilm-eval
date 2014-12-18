@@ -18,7 +18,7 @@ if strcmpi(dataset, 'eco')
                     2 0 2 3 3 1;    % coffee machine
                     1 0 0 0 0 0;    % washing machine
                     3 0 0 0 0 0;    % dryer
-                    0 1 0 2 0 0;    % lamp
+                    0 1 0 2 0 2;    % lamp
                     1 0 0 0 3 0;    % pc
                     0 1 0 3 0 3;    % laptop
                     0 2 0 0 0 0;    % tv

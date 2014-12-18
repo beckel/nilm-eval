@@ -111,5 +111,4 @@ function [] = nilm_eval(setup_file)
     % save experiment result
     summary_file = strcat(path_to_results_summary, '/summary.mat');
     save(summary_file, 'summary'); 
-
 end

@@ -33,7 +33,8 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
         appliance_name = cell2mat(appliance_names(i));
         appliance = getApplianceID(appliance_name);
         actual_consumption = read_plug_data(dataset, household, appliance, evaluation_days, granularity);
-        
+        actual_consumption = actual_consumption(1:100);
+        total_consumption = total_consumption(1:100);
         % load the inferred consumption data
         inferred_consumption = inferred_consumption_matrix(i, :);
 
