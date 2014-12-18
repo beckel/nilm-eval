@@ -9,7 +9,7 @@ function create_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
     configuration_input = 'input/configurations/fhmm_initial.yaml';
-    experiment_input = 'input/experiments/fhmm/fhmm_dishwasher.yaml';
+    experiment_input = 'input/experiments/fhmm/fhmm_all.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);
