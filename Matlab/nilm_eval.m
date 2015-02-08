@@ -57,6 +57,9 @@ function [] = nilm_eval(setup_file)
             trainingRange = ((i-1)*trainingDays)+1 : i*trainingDays;
             evalRange = setdiff(1:size(evalDays,1), trainingRange);
             evaluation_and_training_days{1} = evalDays(evalRange, :);
+            
+            fprintf('size of evalDays: %d\n', size(evalRange));
+            fprintf('size of trainingRange: %d\n', size(trainingRange));
             evaluation_and_training_days{2} = evalDays(trainingRange, :); 
         end
         
@@ -73,14 +76,26 @@ function [] = nilm_eval(setup_file)
         if isfield(result, 'events')
             [summary] = calculate_performance_events(summary, i, setup, evaluation_and_training_days{1}, result);
         end
+        if isfield(result, 'usage')
+            [summary] = calculate_performance_usage(summary, i, setup, evaluation_and_training_days{1}, result);
+        end
 
+        % add training and evaluation days as well as setup file
+        result.evaluation_and_training_days = evaluation_and_training_days;
+        result.setup = setup;
+        result.setup_file = setup_file;
+        
         % save result
+        if ~exist(path_to_results_details, 'dir')
+            mkdir(path_to_results_details);
+        end
         result_file = strcat(path_to_results_details, '/result', num2str(i), '.mat');
         save(result_file, 'result');   
     end
 
     % write results (fscore, rms, etc.) to summary.txt file
     if isfield(result, 'consumption')
+        fprintf(fid, 'Consumption:\n');
         for applianceIDX = 1:size(summary.consumption.fscore,1)
            fprintf(fid, '%s: \n', cell2mat(summary.appliance_names(applianceIDX)));
            fprintf(fid, '%12s %10s %12s %10s %10s %10s %15s %10s %10s\n' , 'ResultNr', 'Fscore', 'Precision', 'Recall', 'TPR', 'FPR', 'DeviationPct', 'RMS', 'NPE'); 
@@ -95,17 +110,39 @@ function [] = nilm_eval(setup_file)
         end
     end
     if isfield(result, 'events')
+        fprintf(fid, 'Events:\n');
         for eventIDX = 1:size(summary.events.fscore,1)
-           fprintf(fid, '%s: \n', summary.event_names{eventIDX});
+           fprintf(fid, '%s: \n', summary.appliance_names{eventIDX});
            fprintf(fid, '%10s %10s %10s %10s %16s %10s\n' , 'ResultNr', 'Fscore', 'Precision', 'Recall', 'Appliance', 'FP_Fraction'); 
            for resultIDX = 1:size(summary.events.fscore,2)
                [max_fraction_value, max_fraction_ID] = max(summary.events.fraction(:,eventIDX, resultIDX));
               fprintf(fid, '%10d %10.4f %10.4f %10.4f %16s %10.4f\n', resultIDX, summary.events.fscore(eventIDX,resultIDX), ...
                   summary.events.precision(eventIDX,resultIDX), summary.events.recall(eventIDX,resultIDX), ...
-                  cell2mat(summary.event_names(max_fraction_ID)), max_fraction_value);
+                  cell2mat(summary.appliance_names(max_fraction_ID)), max_fraction_value);
            end
         end
     end
+    
+    if isfield(result, 'usage')
+        fprintf(fid, 'Usage:\n');
+        fprintf(fid, 'Appliance: %s\n\n', summary.usage.appliance_name);
+        fprintf(fid, '\n\nInferred usage vs. actual usage: \n\n');
+        for i = 1:length(summary.usage.inferred_usage)
+            fprintf(fid, '%s: %d - %d\n', evaluation_and_training_days{1}(i,:), summary.usage.inferred_usage(i), summary.usage.ground_truth_usage(i));
+        end
+        fprintf(fid, '\n\n');
+        
+        fprintf(fid, 'Number of days: %d\n', summary.usage.num_days);
+        fprintf(fid, 'F-Score: %f\n', summary.usage.fscore);
+        fprintf(fid, 'Recall: %f\n', summary.usage.recall);
+        fprintf(fid, 'Precision: %f\n', summary.usage.precision);
+        fprintf(fid, 'True positives: %d\n', summary.usage.tp);
+        fprintf(fid, 'False positives: %d\n', summary.usage.fp);
+        fprintf(fid, 'False negatives: %d\n', summary.usage.fn);
+        fprintf(fid, 'Ratio (overall): %f\n', summary.usage.overall_ratio);
+        fprintf(fid, 'Days correctly estimated that appliance was running: %f\n', summary.usage.days_correct);
+    end
+
     fclose(fid);
 
     % save experiment result

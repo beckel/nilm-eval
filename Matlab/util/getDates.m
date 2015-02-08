@@ -3,7 +3,7 @@
 % Copyright: ETH Zurich, 2014
 % Author: Romano Cicchetti
 
-function [dates] = getDates(house, maxNumOfDays, missingValuesThresholdSM, missingValuesThresholdPlug, dataset, startDate, endDate)
+function [dates] = getDates(house, maxNumOfDays, missingValuesThresholdSM, missingValuesThresholdPlug, dataset, startDate, endDate, ignore_rounded_sm_period)
 
     % GETDATES returns the dates of days fulfilling the conditions imposed by the threshold values
     %   missingValuesThresholdSM: controls the number of missing values in the
@@ -29,6 +29,8 @@ function [dates] = getDates(house, maxNumOfDays, missingValuesThresholdSM, missi
             sm_consumption = read_smartmeter_data(dataset, house, dates_strs(day_idx, :), 1 , 'powerallphases');
             num_of_missing_values_in_sm = nnz(sm_consumption == -1);
             if num_of_missing_values_in_sm / length(sm_consumption) > missingValuesThresholdSM
+                day_is_valid = 0;
+            elseif nnz(mod(sm_consumption, 10)) < 1000
                 day_is_valid = 0;
             else
                 for appliance = appliances

@@ -4,5 +4,6 @@ houses: [1, 2, 3, 4, 5, 6]
 maxNumOfDays: 90
 startDate: '2012-06-01'
 endDate: '2013-01-31'
+ignore_rounded_sm_period: 1
 missingValuesThresholdSM: 0.1
 missingValuesThresholdPlug: 0.3

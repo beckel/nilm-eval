@@ -1,3 +1,7 @@
+# Code to run factorial hidden markov models. The code is based on Nipun Batra's tutorial:
+# http://nbviewer.ipython.org/github/nilmtk/nilmtk/blob/v0.1.0/notebooks/fhmm.ipynb
+# Note that it requires Matlab 2014b to call python code from Matlab.
+
 from collections import OrderedDict
 import sys
 import itertools
@@ -70,12 +74,6 @@ class Fhmm(object):
         [decoded_states, decoded_power] = decode_hmm(len(learnt_states), means_orig, [appliance for appliance in self.model], learnt_states)
         
         return [decoded_states, decoded_power]
-        
-        
-        
-        
-        
-        
         
             
             

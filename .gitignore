@@ -2,6 +2,10 @@ Matlab/data/eco/
 Matlab/data/redd/
 Matlab/results/details/
 Matlab/results/summary/
+Matlab/results/plots/
 Matlab/input/autogen/evaluation_days/
 Matlab/input/autogen/experiments/
+Matlab/cache_plugs.mat
+Matlab/cache_power.mat
+Matlab/cache_sigdat.mat
 .DS_Store

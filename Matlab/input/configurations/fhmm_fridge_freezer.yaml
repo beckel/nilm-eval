@@ -1,0 +1,17 @@
+configuration_name: 'fhmm_initial'
+experiment_name: []
+algorithm: 'disag_fhmm'
+dataset: 'eco'
+household:
+evalDays: 'first_30'
+numOfResults: 1
+trainingDays: 7
+granularity: 1
+filtering: 'meanMedian'
+filtLength: 5
+num_appliances: 2
+states_other: 2
+appliance1: []
+appliance2: []
+num_states_appliance1: []
+num_states_appliance2: []

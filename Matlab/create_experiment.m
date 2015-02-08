@@ -8,8 +8,9 @@
 function create_experiment()
 
     %% SPECIFY CONFIGURATION AND EXPERIMENT
-    configuration_input = 'input/configurations/fhmm_initial.yaml';
-    experiment_input = 'input/experiments/fhmm/fhmm_all.yaml';
+    configuration_input = 'input/configurations/weiss_initial.yaml';
+    experiment_input = 'input/experiments/weiss/app_laptop_r_0.2.yaml';
+%     experiment_input = 'input/experiments/weiss/2014-07-01-all-households.yaml';
 
     % load values of configuration and experiment
     configuration = ReadYaml(configuration_input);

@@ -9,7 +9,7 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
 
     % load parameter values
     inferred_events = result.events;
-    inferred_event_names = result.event_names;
+    inferred_appliance_names = result.appliance_names;
     household = setup.household;
     granularity = setup.granularity;
     dataset = setup.dataset;
@@ -17,16 +17,28 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
     p_edgeThreshold = setup.p_edgeThreshold;
     p_filtering = setup.p_filtering;
     p_filtLength = setup.p_filtLength;
-    p_filtLRatio = setup.p_filtLRatio;
     
-    appliances = findAppliances(household, dataset);
-
-    % get ground truth form plug-level data
+    % get ground truth from plug-level data
     ground_truth_events = [];
-    eventID = 1;
-    for appliance = appliances
+    ground_truth_appliance_names = {};
+    i = 1;
+    for appliance_name = inferred_appliance_names
+        
+        appliance_id = getApplianceID(appliance_name);
+        
         % detect events in plug data
-        appliance_consumption = read_plug_data(dataset, household, appliance, evaluation_days, granularity);
+        global caching;
+        if caching == 1
+            if exist('cache_plugs.mat') == 2
+                load('cache_plugs');
+            else
+                appliance_consumption = read_plug_data(dataset, household, appliance_id, evaluation_days, granularity);
+                save('cache_plugs', 'appliance_consumption');
+            end
+        else
+            appliance_consumption = read_plug_data(dataset, household, appliance_id, evaluation_days, granularity);
+        end
+        
         function_handle = str2func(p_filtering);
         appliance_consumption_filtered = function_handle(appliance_consumption, p_filtLength);
         diff_consumption = diff(appliance_consumption_filtered);
@@ -48,7 +60,7 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
         end 
         
         % only slect significant events
-        idx_siginificant_events = find(events_start_time(2:end) - events_end_time(1:end-1) > 5);
+        idx_siginificant_events = find(events_start_time(2:end) - events_end_time(1:end-1) > 2);
         events_start_time = events_start_time([1, 1+idx_siginificant_events]);
         events_end_time = events_end_time([idx_siginificant_events, end]);
         
@@ -59,35 +71,33 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
         idx_valid_events = events_end_time - events_start_time < 60;
 
         % store the ground truth (events in plug data)
-        ground_truth_events = [ground_truth_events; events_start_time(idx_valid_events)', events_end_time(idx_valid_events)', power_change(idx_valid_events)', repmat(eventID, length(events_start_time(idx_valid_events)), 1)];
-        appliance_name = getApplianceNames([appliance]);
-        ground_truth_event_names{eventID} = cell2mat(appliance_name(1));
-        eventID = eventID + 1;
+        ground_truth_events = [ground_truth_events; events_start_time(idx_valid_events)', events_end_time(idx_valid_events)', power_change(idx_valid_events)', repmat(i, length(events_start_time(idx_valid_events)), 1)];
+        ground_truth_appliance_names(i) = appliance_name;
+        i = i + 1;
     end
 
     % initialize performance metrics
-    appliance_names = getApplianceNames(appliances);
-    events_fscore = zeros(length(appliance_names), 1);
-    events_precision = zeros(length(appliance_names), 1);
-    events_recall = zeros(length(appliance_names), 1);
-    events_tp = zeros(length(appliance_names), 1);
-    events_fp = zeros(length(appliance_names), 1);
-    events_fn = zeros(length(appliance_names), 1);
-    fraction = zeros(length(appliance_names),length(appliance_names));
+    events_fscore = zeros(length(inferred_appliance_names), 1);
+    events_precision = zeros(length(inferred_appliance_names), 1);
+    events_recall = zeros(length(inferred_appliance_names), 1);
+    events_tp = zeros(length(inferred_appliance_names), 1);
+    events_fp = zeros(length(inferred_appliance_names), 1);
+    events_fn = zeros(length(inferred_appliance_names), 1);
+    fraction = zeros(length(inferred_appliance_names),length(inferred_appliance_names));
     
     % compute performance metrics for each appliance
-    for i = 1:length(appliance_names)
-        appliance_name = cell2mat(appliance_names(i));
-        ground_truth_eventID = find(ismember(ground_truth_event_names, appliance_name));
-        inferred_eventID = find(ismember(inferred_event_names, appliance_name));
+    for i = 1:length(inferred_appliance_names)
+        appliance_name = inferred_appliance_names{i};
+        ground_truth_eventID = find(ismember(ground_truth_appliance_names, appliance_name));
+        inferred_eventID = find(ismember(inferred_appliance_names, appliance_name));
         
-        % skip appliance if the ground truth is not known
-        if isempty(inferred_eventID) || isempty(ground_truth_eventID)
-            events_precision(i, 1) = NaN;
-            events_recall(i, 1) = NaN;
-            events_fscore(i, 1) = NaN;
-            continue;
-        end
+%         % skip appliance if the ground truth is not known
+%         if isempty(inferred_eventID) || isempty(ground_truth_eventID)
+%             events_precision(i, 1) = NaN;
+%             events_recall(i, 1) = NaN;
+%             events_fscore(i, 1) = NaN;
+%             continue;
+%         end
         
         % store indexes of ground truth and inferred events
         idx_ground_truth_events = ground_truth_events(:,4) == ground_truth_eventID;
@@ -96,12 +106,22 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
         % compute number of false positives, false negatives and true
         % positives
         ind_ground_truth_events = find(idx_ground_truth_events);
-        vec = arrayfun(@(t) any(ground_truth_events(idx_ground_truth_events,1) - 10 < t & t < ground_truth_events(idx_ground_truth_events,2) + 10),...
+        vec = arrayfun(@(t) any(ground_truth_events(idx_ground_truth_events,1) - 20 < t & t < ground_truth_events(idx_ground_truth_events,2) + 20),...
             inferred_events(idx_inferred_events, 1));
-        vec2 = arrayfun(@(id) any(ground_truth_events(id,1) - 10 < inferred_events(idx_inferred_events, 1) & ...
-            inferred_events(idx_inferred_events, 1) < ground_truth_events(id,2) + 10), ind_ground_truth_events);
+        vec2 = arrayfun(@(id) any(ground_truth_events(id,1) - 20 < inferred_events(idx_inferred_events, 1) & ...
+            inferred_events(idx_inferred_events, 1) < ground_truth_events(id,2) + 20), ind_ground_truth_events);
         applianceID = getApplianceID(appliance_name);
-        appliance_consumption = read_plug_data(dataset, household, applianceID, evaluation_days, granularity);
+        if caching == 1
+            if exist('cache_plugs.mat') == 2
+                load('cache_plugs');
+            else
+                appliance_consumption = read_plug_data(dataset, household, applianceID, evaluation_days, granularity);
+                save('cache_plugs', 'appliance_consumption');
+            end
+        else
+            appliance_consumption = read_plug_data(dataset, household, applianceID, evaluation_days, granularity);
+        end
+        
         plug_data_exists = arrayfun(@(t) ~any(appliance_consumption(1, max(1,t-5):min(t+5,size(appliance_consumption,2))) == -1), inferred_events(idx_inferred_events, 1));
         tp = nnz(vec);
         fp = nnz(~vec & plug_data_exists);
@@ -136,15 +156,15 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
         % belong
         idx_fp = idx_inferred_events(~vec & plug_data_exists);
         fp_events_time = inferred_events(idx_fp,1);
-        for j = 1:length(appliance_names)
+        for j = 1:length(inferred_appliance_names)
            if j == i, continue; end
-           app_name = cell2mat(appliance_names(j));
-           ground_truth_eventID = find(ismember(ground_truth_event_names, app_name));
+           app_name = cell2mat(inferred_appliance_names(j));
+           ground_truth_eventID = find(ismember(ground_truth_appliance_names, app_name));
            if isempty(ground_truth_eventID)
                fraction(j,i) = 0;
            else
                 idx_ground_truth_events = ground_truth_events(:,4) == ground_truth_eventID;
-                vec2 = arrayfun(@(t) any(ground_truth_events(idx_ground_truth_events,1) - 10 < t & t < ground_truth_events(idx_ground_truth_events,2) + 10), fp_events_time);
+                vec2 = arrayfun(@(t) any(ground_truth_events(idx_ground_truth_events,1) - 20 < t & t < ground_truth_events(idx_ground_truth_events,2) + 20), fp_events_time);
                 fraction(j,i) = nnz(vec2)/nnz(plug_data_exists);
            end
         end
@@ -159,6 +179,6 @@ function [summary] = calculate_performance_events(summary, iteration, setup, eva
     summary.events.fp(:, iteration) = events_fp;
     summary.events.fn(:, iteration) = events_fn;
     summary.events.fraction = fraction;
-    summary.event_names = getApplianceNames(appliances);
+    summary.appliance_names = inferred_appliance_names;
 end
 

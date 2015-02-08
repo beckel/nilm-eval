@@ -25,33 +25,53 @@ function [summary] = calculate_performance_consumption(summary, iteration, setup
     fpr = zeros(length(appliance_names), 1);
     
     % load smart meter data
-    total_consumption = read_smartmeter_data(dataset, num2str(household, '%02d'), evaluation_days, granularity, 'powerallphases');
-    
+    global caching;
+    if caching == 1
+        if exist('cache_total.mat') == 2
+            load('cache_total');
+        else
+            total_consumption = read_smartmeter_data(dataset, num2str(household, '%02d'), evaluation_days, granularity, 'powerallphases');
+            save('cache_total', 'total_consumption');
+        end
+    else
+        total_consumption = read_smartmeter_data(dataset, num2str(household, '%02d'), evaluation_days, granularity, 'powerallphases');
+    end
+
     % compute performance for each appliance
     for i  = 1:length(appliance_names)
         % load ground truth data (plug-level data)
         appliance_name = cell2mat(appliance_names(i));
         appliance = getApplianceID(appliance_name);
-        actual_consumption = read_plug_data(dataset, household, appliance, evaluation_days, granularity);
-        actual_consumption = actual_consumption(1:100);
-        total_consumption = total_consumption(1:100);
+        if caching == 1
+            if exist('cache_plugs.mat') == 2
+                load('cache_plugs');
+            else
+                appliance_consumption = read_plug_data(dataset, household, appliance, evaluation_days, granularity);
+                save('cache_plugs', 'appliance_consumption');
+            end
+        else
+            appliance_consumption = read_plug_data(dataset, household, appliance, evaluation_days, granularity);
+        end
+        
+%         actual_consumption = actual_consumption(1:100);
+%         total_consumption = total_consumption(1:100);
         % load the inferred consumption data
         inferred_consumption = inferred_consumption_matrix(i, :);
 
         % calculate root mean square error (rms), deviation in percentage (deviationPct) and
         % normalised error in assigned power (npe)
-        error = abs(actual_consumption - inferred_consumption);
-        index_data_exists = actual_consumption ~= -1 & total_consumption ~= -1;
+        error = abs(appliance_consumption - inferred_consumption);
+        index_data_exists = appliance_consumption ~= -1 & total_consumption ~= -1;
         rms(i,1) = sqrt(mean(error(index_data_exists).^2));
-        deviationAbs = sum(inferred_consumption(index_data_exists)) - sum(actual_consumption(index_data_exists));
-        deviationPct(i,1) = (abs(deviationAbs)) / sum(actual_consumption(index_data_exists));
-        npe(i,1) = sum(error(index_data_exists))/sum(actual_consumption(index_data_exists));
+        deviationAbs = sum(inferred_consumption(index_data_exists)) - sum(appliance_consumption(index_data_exists));
+        deviationPct(i,1) = (abs(deviationAbs)) / sum(appliance_consumption(index_data_exists));
+        npe(i,1) = sum(error(index_data_exists))/sum(appliance_consumption(index_data_exists));
 
         % calculate f_score, recall, precision, true positive rate (tpr), false
         % positive rate (fpr)
-        idx_existing = actual_consumption ~= -1 & total_consumption ~= -1;
+        idx_existing = appliance_consumption ~= -1 & total_consumption ~= -1;
         threshold = get_evaluation_threshold(appliance, household);
-        idx_actual_on = actual_consumption > threshold;
+        idx_actual_on = appliance_consumption > threshold;
         idx_inferred_on = inferred_consumption > threshold;
         tp = nnz(idx_actual_on & idx_inferred_on & idx_existing);
         fp = nnz(~idx_actual_on & idx_inferred_on & idx_existing);

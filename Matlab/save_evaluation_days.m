@@ -11,7 +11,7 @@
 function save_evaluation_days()
     
     %% CONFIG HERE (name of the evaluation_day file)
-    config_file = 'input/evaluation_days/plug_statistics.yaml';
+    config_file = 'input/evaluation_days/first_90.yaml';
     
     config = ReadYaml(config_file);
     
@@ -25,11 +25,14 @@ function save_evaluation_days()
     missingValuesThresholdSM = config.missingValuesThresholdSM; 
     % If the proportion of missing values for any of the plugs on a specific day D is higher than missingValuesThresholdPlug, D is not included in the set of evaluation days.
     missingValuesThresholdPlug = config.missingValuesThresholdPlug; 
-
+    % Include smart meter days that are rounded to 10W (which happens in
+    % the ECO data set)
+    ignore_rounded_sm_period = config.ignore_rounded_sm_period;
+   
     for h = 1:length(houses)
         house = houses{h};
         fprintf('Processing house %d\n', house);
-        evalDays = getDates(house, maxNumOfDays, missingValuesThresholdSM, missingValuesThresholdPlug, dataset, startDate, endDate);    
+        evalDays = getDates(house, maxNumOfDays, missingValuesThresholdSM, missingValuesThresholdPlug, dataset, startDate, endDate, ignore_rounded_sm_period);
         path_to_evalDays = strcat(pwd, '/input/autogen/evaluation_days/', dataset, '/', name);
         if ~exist(path_to_evalDays, 'dir')
             mkdir(path_to_evalDays);

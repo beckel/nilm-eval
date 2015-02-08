@@ -9,7 +9,13 @@ addpath(genpath('algorithms'));
 addpath(genpath('config'));
 addpath(genpath('data_access'));
 addpath(genpath('framework'));
-addpath(genpath('lib'));
+% some conflict with 'legend' plotting function :(
+% addpath(genpath('lib/bnt')); 
+addpath(genpath('lib/lightspeed'));
+addpath(genpath('lib/proxTV-1.0'));
+addpath(genpath('lib/spectralClustering'));
+addpath(genpath('lib/TVDIP'));
+addpath(genpath('lib/YAMLMatlab_0.4.3'));
 addpath(genpath('plot'));
 addpath('projects/');
 addpath('projects/buildsys/');

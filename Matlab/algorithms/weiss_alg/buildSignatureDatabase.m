@@ -13,6 +13,7 @@ function [sig_database] = buildSignatureDatabase(setup, trainingDays)
     filtLength = setup.filtLength;
     plevelMinLength = setup.plevelMinLength;
     maxEventDuration = setup.maxEventDuration;
+    appliance = setup.appliance;
     
     % set variables
     edgeThreshold = 2;
@@ -20,13 +21,25 @@ function [sig_database] = buildSignatureDatabase(setup, trainingDays)
     sig_database = struct;
     numOfSignatures = 1;
     for phase = 1:3   
-        % get real, apparent and reactive (distoritve and translative
+        
+        % get appliance consumption
+        appliances = getAppliancesOfPhase(dataset, household, phase);
+        
+        % get real, apparent and reactive (distortive and translative
         % component) power
         power = getPower(dataset, household, trainingDays, granularity, phase);
 
-        % get appliance consumption
-        appliances = getAppliancesOfPhase(dataset, household, phase);
         for applianceID = appliances'
+            
+            appliance_name = getApplianceNames(applianceID);
+%             if strcmp(appliance, 'all') ~= 1 && strcmp(appliance, appliance_name) ~= 1
+%                 continue;
+%             end
+            
+%             applianceID = getApplianceID(appliance);
+%             phase = getPhase(household, applianceID, dataset)
+%             [event_vecs, timeOfEvents] = get_events_of_single_phase_appliance(phase, input_params);
+
             % apply filter to appliance consumption data and get edges 
             appliance_consumption = read_plug_data(dataset, household, applianceID, trainingDays, granularity);
             function_handle = str2func(filteringMethod);
@@ -59,7 +72,6 @@ function [sig_database] = buildSignatureDatabase(setup, trainingDays)
             idx_neg = event_vecs(:,1) < 0;
             idx_pos = event_vecs(:,1) > 0;
             
-            appliance_name = getApplianceNames(applianceID);            
             numOfDims = 2;
             for idx = [idx_neg, idx_pos]
                 bic = zeros(ceil(sqrt(nnz(idx)/2)),1);

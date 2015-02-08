@@ -14,7 +14,11 @@ plevelMinLength: 5
 maxEventDuration: 20
 eventThreshold: 5
 r: 1
+osc: 1
+usage_duration: 5000
+usage_consumption: 1000
 p_edgeThreshold: 5
 p_filtering: 'meanMedian'
 p_filtLength: 5
 p_filtLRatio: 0.0002
+appliance: 'All'

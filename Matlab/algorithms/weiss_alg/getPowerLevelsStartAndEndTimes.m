@@ -7,8 +7,10 @@ function [plevel] = getPowerLevelsStartAndEndTimes(edges, plevelMinLength)
 
     % extract power levels (periods between two edges)
     plevel = struct;
-    plevel_startidx = find(diff(edges) == -1)+1;
-    plevel_endidx = find(diff(edges) == 1)-1;
+%     plevel_startidx = find(diff(edges) == -1)+1;
+%     plevel_endidx = find(diff(edges) == 1)-1;
+    plevel_startidx = find(diff(edges) == -1);
+    plevel_endidx = find(diff(edges) == 1);
     if length(plevel_startidx) < 2 || length(plevel_endidx) < 2
         plevel.startidx = [];
         plevel.endidx = [];

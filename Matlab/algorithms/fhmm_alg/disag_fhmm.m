@@ -17,19 +17,35 @@ function [result] = disag_fhmm(evaluation_and_training_days, setup, fid)
     
     % prepare plug and smart meter data for training
     appliances = {};
+    sum_of_plug_data = zeros(1, size(training_days,1) * 24 * 3600);
+%     sum_of_plug_data = sum_of_plug_data(1:100);
     for i=1:num_appliances
         appliance = struct;
         eval(['appliance.name = setup.appliance' num2str(i) ';']);
         appliance.id = getApplianceID(appliance.name);
         fprintf('Reading data from appliance %s - id: %d\n', appliance.name, appliance.id);
         appliance.plug_data_training = read_plug_data(dataset, household, appliance.id, training_days, granularity);
-        % appliance.plug_data_training = appliance.plug_data_training(1:100);
+%         appliance.plug_data_training = appliance.plug_data_training(1:100);
+        sum_of_plug_data = sum_of_plug_data + appliance.plug_data_training;
         eval(['appliance.num_states = setup.num_states_appliance' num2str(i) ';']);
         
         appliances{i} = appliance;
     end
+    
+    % prepare "other" plug
+    if setup.states_other > 0
+        smart_meter_data_training = read_smartmeter_data(dataset, household, training_days, granularity, 'powerallphases');
+%         smart_meter_data_training = smart_meter_data_training(1:100);
+        other_data = smart_meter_data_training - sum_of_plug_data;    
+        other_appliance = struct;
+        appliance.name = 'other';
+        appliance.plug_data_training = other_data;
+        appliance.num_states = setup.states_other;
+        appliances{end+1} = appliance;
+    end
+    
     smart_meter_data_evaluation = read_smartmeter_data(dataset, household, evaluation_days, granularity, 'powerallphases');
-    % smart_meter_data_evaluation = smart_meter_data_evaluation (1:100);
+%     smart_meter_data_evaluation = smart_meter_data_evaluation (1:100);
     
     % perform training
     pyObj = py.nilmtk.disaggregate.chris.fhmm.Fhmm();
