@@ -9,7 +9,7 @@ function run_experiment()
     configuration_input = 'input/configurations/weiss_initial.yaml';
     experiment_input = 'input/experiments/weiss/app_laptop_r_0.2.yaml';
     global caching;
-    caching = 1;
+    caching = 0;
     
     configuration = ReadYaml(configuration_input);
     algorithm = configuration.algorithm;
